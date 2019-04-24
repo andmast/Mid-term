@@ -76,7 +76,13 @@ ROUTES
 -   delete-   /users/:uID/list/items/:itemID/delete    to delete item on my to do list (not separate html page)
 
 
+BRANCHES
 
+feature/categorizerAPI      ANDREA 6:00PM
+feature/listPage            LETICIA 6:00PM HTML, JS, SASS (HEADER to come)
+feature/itemEdit            SAHANAH 6:00PM HTML, JS, SASS (HEADER to come)
+
+                        
 
 
 
