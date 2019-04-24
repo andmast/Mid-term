@@ -44,21 +44,22 @@ app.get("/", (req, res) => {
 });
 
 
-// app.get/user/:uID/list
-// app.post/user/:uID/list/items
-// app.get/user/:uID/list/items/:itemID/edit
-// app.delete/user/:uID/list/items/:itemID/delete
+// app.get/user/:uId/list
+// app.post/user/:uId/list/items
+// app.get/user/:uId/list/items/:itemID/edit
+// app.delete/user/:uId/list/items/:itemID/delete
 
 // get list page from user
-app.get("/user/:uID/list", (req, res) => {
+app.get("/user/:uId/list", (req, res) => {
 
   res.render("list");
 });
 
 // create/post a new item in the list page
-app.post("/user/:uID/list/items", (req, res) => {
+app.post("/user/:uId/list/items", (req, res) => {
   // read the content in the input area and create new item in data base
-  // with the name of the thing, query the name  through the categorizer
+  // with the name of the thing, query the name through the categorizer
+  // generate a sequential number - check the last item number a create a new one for the Id
   // and put that inside category field
 
   // render everything again/load items again
@@ -66,14 +67,14 @@ app.post("/user/:uID/list/items", (req, res) => {
 });
 
 // get/redirect user to the edit item page
-app.get("/user/:uID/list/items/:itemID/edit", (req, res) => {
+app.get("/user/:uId/list/items/:itemID/edit", (req, res) => {
   // identifies in wich item the user clicked
   // and pass that as a variable to edit the item ID she clicked!
   res.redirect("items");
 });
 
 // delete item from list page
-app.delete("/user/:uID/list/items/:itemID/delete", (req, res) => {
+app.delete("/user/:uId/list/items/:itemID/delete", (req, res) => {
   // identifies in wich item the user clicked
   // and delete that from the data base
   // render everything again/load items again

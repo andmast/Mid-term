@@ -20,14 +20,18 @@
     <header>
     <h1>Smart To Do!</h1>
       <h3>Logged as: email@lhl.com</h3>
-      <button>Log out!</button>
+      <form method="POST" action="/user/:uId/logout">
+        <button>Log out!</button>
+      </form>
       <br>
       <br>
     </header>
       <h4>Create New To Do!</h4>
       <h5>What?</h5>
       <input type="text" name="new-item">
-      <button>Create!</button>
+      <form method="POST" action="/user/:uId/list/items">
+        <button>Create!</button>
+      </form>
       <br>
       <br>
       <div class="container">
@@ -37,25 +41,49 @@
           <div class="table-responsive">
             <table id="mytable" class="table table-bordred table-striped">
               <thead>
-<!--                 <th><input type="checkbox" id="checkall" /></th>
- -->                <th>What?</th>
+                <th>What?</th>
                 <th>Category?</th>
                 <th>Done?</th>
                 <th>Edit?</th>
                 <th>Delete?</th>
               </thead>
-              <tbody>
+              <tbody id="tableBody">
 
                 <tr>
                   <td>Harry Potter and the Philosophic Stone</td>
                   <td>To read</td>
                   <td><input type="checkbox" class="checkthis" /></td>
-                  <td><a href="/user/:uID/list/items/:itemID/edit">Edit</a></td>
-                  <td><form method="DELETE" action="/user/:uID/list/items/:itemID/delete">
+                  <td><a href="/user/:uId/list/items/:itemID/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/user/:uId/list/items/:itemID/delete">
                     <button>Delete</button>
                     </form>
                   </td>
                 </tr>
 
+                <tr>
+                  <td>Starbucks</td>
+                  <td>To eat</td>
+                  <td><input type="checkbox" class="checkthis" /></td>
+                  <td><a href="/user/:uId/list/items/:itemID/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/user/:uId/list/items/:itemID/delete">
+                    <button>Delete</button>
+                    </form>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Avengers Endgame</td>
+                  <td>To watch</td>
+                  <td><input type="checkbox" class="checkthis" /></td>
+                  <td><a href="/user/:uId/list/items/:itemID/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/user/:uId/list/items/:itemID/delete">
+                    <button>Delete</button>
+                    </form>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
   </body>
 </html>
