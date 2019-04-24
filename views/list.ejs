@@ -33,19 +33,29 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-          <h4>Bootstrap Snipp for Datatable</h4>
+          <h4>My To Do's</h4>
           <div class="table-responsive">
             <table id="mytable" class="table table-bordred table-striped">
               <thead>
-                <th><input type="checkbox" id="checkall" /></th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Contact</th>
-                <th>Edit</th>
-                <th>Delete</th>
+<!--                 <th><input type="checkbox" id="checkall" /></th>
+ -->                <th>What?</th>
+                <th>Category?</th>
+                <th>Done?</th>
+                <th>Edit?</th>
+                <th>Delete?</th>
               </thead>
+              <tbody>
+
+                <tr>
+                  <td>Harry Potter and the Philosophic Stone</td>
+                  <td>To read</td>
+                  <td><input type="checkbox" class="checkthis" /></td>
+                  <td><a href="/user/:uID/list/items/:itemID/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/user/:uID/list/items/:itemID/delete">
+                    <button>Delete</button>
+                    </form>
+                  </td>
+                </tr>
 
   </body>
 </html>
