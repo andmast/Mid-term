@@ -36,13 +36,55 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+// app.use("/api/users", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
 });
 
+
+// app.get/user/:uID/list
+// app.post/user/:uID/list/items
+// app.get/user/:uID/list/items/:itemID/edit
+// app.delete/user/:uID/list/items/:itemID/delete
+
+// get list page from user
+app.get("/user/:uID/list", (req, res) => {
+
+  res.render("list");
+});
+
+// create/post a new item in the list page
+app.post("/user/:uID/list/items", (req, res) => {
+  // read the content in the input area and create new item in data base
+  // with the name of the thing, query the name  through the categorizer
+  // and put that inside category field
+
+  // render everything again/load items again
+  res.render('list');
+});
+
+// get/redirect user to the edit item page
+app.get("/user/:uID/list/items/:itemID/edit", (req, res) => {
+  // identifies in wich item the user clicked
+  // and pass that as a variable to edit the item ID she clicked!
+  res.redirect("items");
+});
+
+// delete item from list page
+app.delete("/user/:uID/list/items/:itemID/delete", (req, res) => {
+  // identifies in wich item the user clicked
+  // and delete that from the data base
+  // render everything again/load items again
+  res.render("list");
+});
+
+
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+
+
