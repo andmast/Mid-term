@@ -72,6 +72,7 @@ ROUTES
 -   get-      /users/:uID/list                         to see their own list
 
 -   post-     /users/:uID/list/items                   to add item on my to do list (NOT separate html page)
+-   get-      /user/:uID/list/items/:itemID/edit       to go to edit page
 -   put-      /users/:uID/list/items/:itemID/edit      to edit item on my to do list (separate html page)
 -   delete-   /users/:uID/list/items/:itemID/delete    to delete item on my to do list (not separate html page)
 
