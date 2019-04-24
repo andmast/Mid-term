@@ -43,27 +43,28 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// get/redirect user to the edit item page
-app.get("/user/:uID/list/items/:itemID/edit", (req, res) => {
- // identifies in wich item the user clicked
- // and pass that as a variable to edit the item ID she clicked!
- res.render("items");
-});
+// // get/redirect user to the edit item page
+// app.get("/user/:uID/list/items/:itemID/edit", (req, res) => {
+//  // identifies in wich item the user clicked
+//  // and pass that as a variable to edit the item ID she clicked!
+//  res.render("items");
+// });
 
 // Clicked update button on item page allowing user to change item name, change category
-// app.put("/users/:uID/list/items/:itemID/edit", (req, res) => {
+app.put("/users/:userID/list/items/:itemID/edit", (req, res) => {
 
-//   // if (item category changed) {
-//   //   update database with new category;
-//   // }
+  if (item category changed) {
+    update database with new category;
+  }
 
-//   // if (item name changed) {
-//   //   update databae with new item name;
-//   // }
-//   // res.redirect("index", updatedDatabase);
-//   res.redirect("index");
+  if (item name changed) {
+    update databae with new item name;
+  }
+  //using knex to refresh table
+  res.redirect("index", updatedDatabase);
+  // res.redirect("index");
 
-// });
+});
 
 
 app.listen(PORT, () => {
