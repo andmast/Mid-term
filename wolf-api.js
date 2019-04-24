@@ -5,5 +5,9 @@ const input = process.argv.slice(2).join(" ");
 console.log("input",input);
 
 waApi.getFull(input).then((queryresult) => {
-  console.log(queryresult)
+  let array = []
+  console.log(queryresult.datatypes)
+  let test = queryresult.datatypes.match(/\b\w+/g)
+  console.log(test)
+
 }).catch(console.error);
