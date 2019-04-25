@@ -4,16 +4,16 @@ const WolframAlphaAPI = require('wolfram-alpha-api');
 const waApi = WolframAlphaAPI('65L9AV-UHW6RVVYGY');
 
 const checks = {
-  toWatch: { movie: RegExp("Movie"), tv: RegExp("Television")},
-  toEat:  { food: RegExp("Food"), retail: RegExp("Retail")},
-  toRead: { book: RegExp("Book"), comic: RegExp("Comic"), text: RegExp("Text"), periodical: RegExp("Periodical") },
-  toBuy: { product: RegExp("Product")},
+  "1": { movie: RegExp("Movie"), tv: RegExp("Television")},
+  "2":  { food: RegExp("Food"), retail: RegExp("Retail")},
+  "3": { book: RegExp("Book"), comic: RegExp("Comic"), text: RegExp("Text"), periodical: RegExp("Periodical") },
+  "4": { product: RegExp("Product")},
 }
 
 
 function categorizer(argument, callback)  {
   const result = {
-    category: "Uncategorized",
+    category: "5",
     type: "Uncategorized"
   }
   waApi.getFull({
