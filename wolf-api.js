@@ -4,7 +4,7 @@ const input = process.argv.slice(2).join(" ");
 
 const checksForToWatch = ["Television","Movie"]
 const checksForToEat = ["Food","Retail"]
-const checksForToRead = ["Book","Comic","Text"]
+const checksForToRead = ["Book","Comic","Text","Fiction"]
 const checksForToBuy = ["Product"]
 
 console.log("input",input);
@@ -30,6 +30,10 @@ waApi.getFull(input).then((queryresult) => {
       console.log("to read")
       }
       test = element.match(/(Comic)/gm)
+      if(test){
+      console.log("to read")
+      }
+      test = element.match(/(Fiction)/gm)
       if(test){
       console.log("to read")
       }
