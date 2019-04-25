@@ -11,22 +11,37 @@ const checks = {
 
 console.log("input",input);
 
-waApi.getFull({
-  input: input,
-  scanner: "datatypes",
-  format: 'plaintext',
-})
-.then((queryresult) => {
-  if (queryresult.datatypes === '') {
-    console.log(queryresult)
-    console.log("UNCATEGORIZED")
-  } else {
-      for (category in checks) {
-        for(test in checks[category]){
-          if( checks[category][test].test(queryresult.datatypes) ) {
-            console.log(category,test)
+function categorizer(argument, callback)  {
+  waApi.getFull({
+    input: input,
+    scanner: "datatypes",
+    format: 'plaintext',
+  })
+  .then((queryresult) => {
+    if (queryresult.datatypes === '') {
+      console.log(queryresult)
+      console.log("UNCATEGORIZED")
+    } else {
+        for (category in checks) {
+          for(test in checks[category]){
+            if( checks[category][test].test(queryresult.datatypes) ) {
+              let result = {
+                category: category,
+                type: test
+              }
+              callback(null , result)
+            }
           }
-        }
+      }
     }
-  }
-}).catch(console.error);
+  }).catch((error) =>{
+    callback(error)
+  });
+
+}
+
+categorizer(input, (err, result) =>{
+  console.log(result.category, result.type)
+});
+
+
