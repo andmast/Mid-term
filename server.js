@@ -82,6 +82,7 @@ app.delete("/user/:userId/list/items/:itemID/delete", (req, res) => {
   // and delete that from the data base
   // render everything again/load items again
   res.render("list");
+});
 
 //TEST FUNCTION ONLY!
 // get/redirect user to the edit item page
@@ -113,11 +114,6 @@ app.put("/test_endpoint", (req, res) => {
   res.json({'foo':'bar'});
 });
 
-
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
-
