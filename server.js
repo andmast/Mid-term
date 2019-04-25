@@ -38,7 +38,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-// app.use("/api/users", usersRoutes(knex));
+app.use("/api/users", usersRoutes(knex));
 
 
 /////////////////////////ROUTES/////////////////////////
@@ -54,57 +54,9 @@ app.get("/list", (req, res) => {
   res.render("list");
 });
 
-// get list page from user - items contents
-app.get("/api/items", (req, res) => {
-  console.log('Getting the items...');
-  res.json({ users: {
-                 '1': {id: 1,
-                     name: 'Leticia',
-                     email: 'lzduque@hotmail.com',
-                     pasword: 1234                     }
-                 },
-               items: {
-                 1: {id: 1,
-                     name: 'Supernatural',
-                     done: false,
-                     category: "toWatch",
-                     userId: 1
-                     },
-                 2: {id: 2,
-                     name: 'Captain Marvel',
-                     done: true,
-                     category: 1,
-                     userId: 1
-                     },
-                 3: {id: 3,
-                     name: 'Avengers Endgame',
-                     done: false,
-                     category: 1,
-                     userId: 1
-                     }
-                 }
-              });
-});
 
 
-// create/post a new item in the list page -- replaced with AJAX code
-app.post("/api/items", (req, res) => {
-  // read the content in the input area and create new item in data base --> in app.js
-  const input = req.body;
-  console.log('input: ', input);
-  // with the name of the thing, query the name through the categorizer
 
-  // and put that inside category field
-  // knex('items')
-  //   .insert(req.body)
-  //   .then((results) => {
-  //     res.json(results);
-  //   });
-
-  // render everything again/load items again --> in app.js
-  console.log('req.body: ', req.body);
-  res.send("It's Ok!!!");
-});
 
 // get/redirect user to the edit item page
 app.get("/items/:itemID/edit", (req, res) => {

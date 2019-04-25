@@ -66,10 +66,11 @@ ROUTES
 -   get-      /users/                      if already logged in to go directly to profile page
 -   put-      /users/edit                  to update profile
 -   get-      /list                        to see their own list
--   get-      /api/items                   get all the items in the list (NOT separate html page)
--   post-     /api/items                   to add item on my to do list (NOT separate html page)
--   put-      /items/:itemID/edit          to edit item on my to do list (separate html page)
--   delete-   /items/:itemID/delete        to delete item on my to do list (not separate html page)
+-   get-      /api/users/list/items                   get all the items in the list (NOT separate html page)
+-   post-     /api/users/list/items                   to add item on my to do list (NOT separate html page)
+-   get-      /api/users/list/items/:itemID          to edit item on my to do list (separate html page)
+-   put-      /api/users/list/items/:itemID/edit          to edit item on my to do list (separate html page)
+-   delete-   /api/users/list/items/:itemID/delete        to delete item on my to do list (not separate html page)
 
 
 BRANCHES
