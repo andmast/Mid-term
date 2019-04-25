@@ -1,3 +1,5 @@
+//this database matches .env but have to define the variables DB...etc
+
 require('dotenv').config();
 
 module.exports = {

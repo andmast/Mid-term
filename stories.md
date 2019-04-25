@@ -83,11 +83,54 @@ feature/categorizerAPI      ANDREA 6:00PM
 feature/listPage            LETICIA 6:00PM HTML, JS, SASS (HEADER to come)
 feature/itemEdit            SAHANAH 6:00PM HTML, JS, SASS (HEADER to come)
 
-                        
+DATABASE: 
 
+midterm
 
+TABLE: 
 
+users
+-----------------------------------       
+id         | email       | password
+-----------|-------------|---------
+primary    |             | 
+key(serial)|             |
+-----------|-------------|---------
 
+items
+-------------------------------------------------------------
+id         | what        | completed | userID    | categoryID
+-----------|-------------|-----------|-----------|-----------
+primary    |             |           | foreign   | foreign
+key(serial)|             |           | key       | key
+-----------|-------------|-----------|-----------|-----------
+
+categories
+--------------------------
+id         | name        | 
+-----------|-------------|
+primary    |             | 
+key(serial)|             | 
+-----------|-------------|
+
+USERS 
+-table populated upon registration (POST /register)
+-userID created upon register (unique random string?)
+-email checked in database and unique
+-password encrypted with bcrypt
+-password can be updated in profile page (PUT /users/:uID/edit)
+
+ITEMS
+-table populated when user creates item (POST /users/:uID/list/items)
+-itemID sequential (?)
+-what (user input in html)
+-completed (user checkbox in html)
+-userID (same as users table)
+-categoryID (use Wolfram API to match category type and we assign ID)
+
+CATEGORIES
+-table populated when user creates or edits item (POST /users/:uID/list/items & PUT /users/:uID/list/items/:itemID/edit)
+-categoryID (use Wolfram API to match category type and we assign ID)
 
 
 
