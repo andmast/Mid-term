@@ -19,8 +19,7 @@ function categorizer(argument, callback)  {
   })
   .then((queryresult) => {
     if (queryresult.datatypes === '') {
-      console.log(queryresult)
-      console.log("UNCATEGORIZED")
+      callback("No datatypes")
     } else {
         for (category in checks) {
           for(test in checks[category]){
@@ -40,8 +39,13 @@ function categorizer(argument, callback)  {
 
 }
 
-categorizer(input, (err, result) =>{
-  console.log(result.category, result.type)
+categorizer(input, (error, result) =>{
+  if(!error){
+    console.log(result.category, result.type);
+  } else {
+    console.log(error);
+  }
+
 });
 
 
