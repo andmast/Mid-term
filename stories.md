@@ -71,9 +71,16 @@ ROUTES
 -   put-      /users/:userId/edit                         to update profile
 -   get-      /users/:userId/list                         to see their own list
 
+<<<<<<< HEAD
 -   post-     /users/:userId/list/items                   to add item on my to do list (NOT separate html page)
 -   put-      /users/:userId/list/items/:itemID/edit      to edit item on my to do list (separate html page)
 -   delete-   /users/:userId/list/items/:itemID/delete    to delete item on my to do list (not separate html page)
+=======
+-   post-     /users/:uID/list/items                   to add item on my to do list (NOT separate html page)
+-   get-      /user/:uID/list/items/:itemID/edit       to go to edit page
+-   put-      /users/:uID/list/items/:itemID/edit      to edit item on my to do list (separate html page)
+-   delete-   /users/:uID/list/items/:itemID/delete    to delete item on my to do list (not separate html page)
+>>>>>>> feature/itemEdit
 
 
 BRANCHES
@@ -82,11 +89,54 @@ feature/categorizerAPI      ANDREA 6:00PM
 feature/listPage            LETICIA 6:00PM HTML, JS, SASS (HEADER to come)
 feature/itemEdit            SAHANAH 6:00PM HTML, JS, SASS (HEADER to come)
 
-                        
+DATABASE: 
 
+midterm
 
+TABLE: 
 
+users
+-----------------------------------       
+id         | email       | password
+-----------|-------------|---------
+primary    |             | 
+key(serial)|             |
+-----------|-------------|---------
 
+items
+-------------------------------------------------------------
+id         | what        | completed | userID    | categoryID
+-----------|-------------|-----------|-----------|-----------
+primary    |             |           | foreign   | foreign
+key(serial)|             |           | key       | key
+-----------|-------------|-----------|-----------|-----------
+
+categories
+--------------------------
+id         | name        | 
+-----------|-------------|
+primary    |             | 
+key(serial)|             | 
+-----------|-------------|
+
+USERS 
+-table populated upon registration (POST /register)
+-userID created upon register (unique random string?)
+-email checked in database and unique
+-password encrypted with bcrypt
+-password can be updated in profile page (PUT /users/:uID/edit)
+
+ITEMS
+-table populated when user creates item (POST /users/:uID/list/items)
+-itemID sequential (?)
+-what (user input in html)
+-completed (user checkbox in html)
+-userID (same as users table)
+-categoryID (use Wolfram API to match category type and we assign ID)
+
+CATEGORIES
+-table populated when user creates or edits item (POST /users/:uID/list/items & PUT /users/:uID/list/items/:itemID/edit)
+-categoryID (use Wolfram API to match category type and we assign ID)
 
 
 

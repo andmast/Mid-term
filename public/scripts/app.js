@@ -1,5 +1,6 @@
 "use strict";
 
+
 $(() => {
   $.ajax({
     method: "GET",
@@ -104,3 +105,6 @@ $(document).ready(function() {
   $('#addNewItemButton').on('click', handleSubmit);
 
 });
+
+
+

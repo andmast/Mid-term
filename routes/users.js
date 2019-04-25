@@ -1,3 +1,5 @@
+//this file is for the routes using knex and postgres to update the database
+//* equals which table we are looking at and which
 "use strict";
 
 const express = require('express');
