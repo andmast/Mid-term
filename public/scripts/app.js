@@ -56,6 +56,7 @@ return $(newItem);
 
 const handleSubmit = (event) => {
   event.preventDefault();
+  console.log('Button clicked!');
 
   // if ($('section.new-tweet form p.error')) {
   //   $('p.error').empty().toggleClass('error right');
@@ -72,7 +73,7 @@ const handleSubmit = (event) => {
   // }
 
   $.ajax({
-    type: 'PUT',
+    type: 'POST',
     url: '/user/:userId/list/items',
     data : $('#newItem').text('#newItem').serialize(),
     complete: function() {

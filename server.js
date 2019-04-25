@@ -55,7 +55,7 @@ app.get("/user/:userId/list", (req, res) => {
   res.render("list");
 });
 
-// create/post a new item in the list page
+// create/post a new item in the list page -- replaced with AJAX code
 // app.post("/user/:userId/list/items", (req, res) => {
 //   // read the content in the input area and create new item in data base
 //   // with the name of the thing, query the name through the categorizer
