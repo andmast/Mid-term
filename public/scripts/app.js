@@ -1,15 +1,15 @@
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
-
 "use strict";
+
+$(() => {
+  $.ajax({
+    method: "GET",
+    url: "/api/users"
+  }).done((users) => {
+    for(user of users) {
+      $("<div>").text(user.name).appendTo($("body"));
+    }
+  });
+});
 
 const data = [];
 
@@ -52,6 +52,7 @@ function addItem(itemData) {
         </article>`;
 
 return $(newItem);
+}
 
 
 const handleSubmit = (event) => {
@@ -85,7 +86,7 @@ const handleSubmit = (event) => {
 
 
 const loadItems = function() {
-  $.get('/user/:userId/list', function(data) {
+  $.get('/user/:userId/list/items', function(data) {
     $('#newItem').text('#newItem').val('');
     renderItems(data);
     console.log('data', data);
