@@ -1,6 +1,6 @@
 const wolfApi = require ('./wolf-api');
 
-wolfApi.categorizer("harry potter", (error, result) =>{
+wolfApi.categorizer("annie", (error, result) =>{
   if(!error){
     console.log("Success",result.category, result.type);
   } else {
