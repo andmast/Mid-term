@@ -2,58 +2,31 @@ const WolframAlphaAPI = require('wolfram-alpha-api');
 const waApi = WolframAlphaAPI('65L9AV-UHW6RVVYGY');
 const input = process.argv.slice(2).join(" ");
 
-const checksForToWatch = ["Television","Movie"]
-const checksForToEat = ["Food","Retail"]
-const checksForToRead = ["Book","Comic","Text","Fiction"]
-const checksForToBuy = ["Product"]
+const checks = {
+  toWatch: { movie: RegExp("Movie"), tv: RegExp("Television")},
+  toEat:  { food: RegExp("Food"), retail: RegExp("Retail")},
+  toRead: { book: RegExp("Book"), comic: RegExp("Comic"), text: RegExp("Text"), periodical: RegExp("Periodical") },
+  toBuy: { product: RegExp("Product")},
+}
 
 console.log("input",input);
 
-waApi.getFull(input).then((queryresult) => {
-  const dataTypes = queryresult.datatypes.match(/\b\w+/g)
+waApi.getFull({
+  input: input,
+  scanner: "datatypes",
+  format: 'plaintext',
+})
+.then((queryresult) => {
   if (queryresult.datatypes === '') {
     console.log(queryresult)
     console.log("UNCATEGORIZED")
   } else {
-    dataTypes.forEach((element) =>{
-      console.log("element",element)
-      let test = element.match(/(Television)/gm)
-      if(test){
-      console.log("To watch")
-      }
-      test = element.match(/(Movie)/gm)
-      if(test){
-      console.log("To watch")
-      }
-      test = element.match(/(Book)/gm)
-      if(test){
-      console.log("to read")
-      }
-      test = element.match(/(Comic)/gm)
-      if(test){
-      console.log("to read")
-      }
-      test = element.match(/(Fiction)/gm)
-      if(test){
-      console.log("to read")
-      }
-       test = element.match(/(Text)/gm)
-      if(test){
-      console.log("To read")
-      }
-       test = element.match(/(Product)/gm)
-      if(test){
-      console.log("To buy")
-      }
-       test = element.match(/(Food)/gm)
-      if(test){
-      console.log("To eat")
-      }
-       test = element.match(/(Retail)/gm)
-      if(test){
-      console.log("To eat")
-      }
-
-    })
+      for (category in checks) {
+        for(test in checks[category]){
+          if( checks[category][test].test(queryresult.datatypes) ) {
+            console.log(category,test)
+          }
+        }
+    }
   }
 }).catch(console.error);
