@@ -91,29 +91,30 @@ app.get("/api/items", (req, res) => {
 app.post("/api/items", (req, res) => {
   // read the content in the input area and create new item in data base --> in app.js
   const input = req.body;
+  console.log('input: ', input);
   // with the name of the thing, query the name through the categorizer
 
   // and put that inside category field
-  knex('items')
-    .insert(req.body)
-    .then((results) => {
-      res.json(results);
-    });
+  // knex('items')
+  //   .insert(req.body)
+  //   .then((results) => {
+  //     res.json(results);
+  //   });
 
   // render everything again/load items again --> in app.js
-  console.log(req.params.userId, req.body);
-  res.render('list');
+  console.log('req.body: ', req.body);
+  res.send("It's Ok!!!");
 });
 
 // get/redirect user to the edit item page
-app.get("/users/:userId/list/items/:itemID/edit", (req, res) => {
+app.get("/items/:itemID/edit", (req, res) => {
   // identifies in wich item the user clicked
   // and pass that as a variable to edit the item ID she clicked!
   res.redirect("items");
 });
 
 // delete item from list page
-app.delete("/users/:userId/list/items/:itemID/delete", (req, res) => {
+app.delete("/items/:itemID/delete", (req, res) => {
   // identifies in wich item the user clicked
   // and delete that from the data base
   // render everything again/load items again
@@ -122,7 +123,7 @@ app.delete("/users/:userId/list/items/:itemID/delete", (req, res) => {
 
 //TEST FUNCTION ONLY!
 // get/redirect user to the edit item page
-app.get("/users/:uID/list/items/:itemID/edit", (req, res) => {
+app.get("/items/:itemID/edit", (req, res) => {
  // identifies in wich item the user clicked
  // and pass that as a variable to edit the item ID she clicked!
  res.render("items");

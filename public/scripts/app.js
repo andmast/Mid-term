@@ -53,7 +53,7 @@ function renderItems(items) {
   // items.forEach(function(item) {
     var $item = createItem(items);
     $('#tableBody').append($item);
-    console.log('Appending to the body');
+    console.log('Appended to the body!');
   // });
 }
 
@@ -74,14 +74,14 @@ function createItem(itemData) {
                   <td>${itemName}</td>
                   <td>${category}</td>
                   <td><input type="checkbox" class="checkthis" /></td>
-                  <td><a href="/users/${userId}/list/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" action="/users/${userId}/list/items/${itemId}/delete">
+                  <td><a href="/items/${itemId}/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/items/${itemId}/delete">
                     <button>Delete</button>
                     </form>
                   </td>
                 </tr>
         </article>`;
-  console.log(newItem);
+  console.log('newItem created: ',newItem);
 
 return $(newItem);
 }
@@ -108,22 +108,23 @@ const handleSubmit = (event) => {
   $.ajax({
     type: 'POST',
     url: '/api/items', //posting info (new item) to the items page
-    data : $('#newItem').text('#newItem').serialize(),
+    data : $('#form').serialize(),
     complete: function() {
       console.log('request complete');
       loadItems();
     }
   });
+  console.log('ended handle submit!');
 };
 
 
 const loadItems = function() {
   console.log('loading items');
   $.get('/api/items', function(data) {
-        console.log('data from loadItems: ', data);
 
-    $('#newItem').text('#newItem').val('');
-    console.log('data from textarea: ',$('#newItem').text('#newItem').val(''));
+    console.log('data from loadItems: ', data);
+    console.log('data from textarea: ',$('textarea#newItem').val(''));
+    $('#newItem').val('');
 
     renderItems(data);
   });
@@ -135,7 +136,7 @@ const loadItems = function() {
 
 $(document).ready(function() {
 
-  createItem(data);
+  // createItem(data);
   loadItems();
 
 
