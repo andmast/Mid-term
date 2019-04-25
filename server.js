@@ -38,54 +38,91 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+// app.use("/api/users", usersRoutes(knex));
+
+
+/////////////////////////ROUTES/////////////////////////
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
 });
 
-
-
-// app.get/user/:userId/list
-// app.post/user/:userId/list/items
-// app.get/user/:userId/list/items/:itemID/edit
-// app.delete/user/:userId/list/items/:itemID/delete
-
 // get list page from user
-app.get("/user/:userId/list", (req, res) => {
-
+app.get("/list", (req, res) => {
+  console.log('Getting the list page...');
   res.render("list");
 });
 
-// create/post a new item in the list page -- replaced with AJAX code
-// app.post("/user/:userId/list/items", (req, res) => {
-//   // read the content in the input area and create new item in data base
-//   // with the name of the thing, query the name through the categorizer
-//   // generate a sequential number - check the last item number a create a new one for the Id
-//   // and put that inside category field
+// get list page from user - items contents
+app.get("/api/items", (req, res) => {
+  console.log('Getting the items...');
+  res.json({ users: {
+                 '1': {id: 1,
+                     name: 'Leticia',
+                     email: 'lzduque@hotmail.com',
+                     pasword: 1234                     }
+                 },
+               items: {
+                 1: {id: 1,
+                     name: 'Supernatural',
+                     done: false,
+                     category: "toWatch",
+                     userId: 1
+                     },
+                 2: {id: 2,
+                     name: 'Captain Marvel',
+                     done: true,
+                     category: 1,
+                     userId: 1
+                     },
+                 3: {id: 3,
+                     name: 'Avengers Endgame',
+                     done: false,
+                     category: 1,
+                     userId: 1
+                     }
+                 }
+              });
+});
 
-//   // render everything again/load items again
-//   res.render('list');
-// });
+
+// create/post a new item in the list page -- replaced with AJAX code
+app.post("/api/items", (req, res) => {
+  // read the content in the input area and create new item in data base --> in app.js
+  const input = req.body;
+  // with the name of the thing, query the name through the categorizer
+
+  // and put that inside category field
+  knex('items')
+    .insert(req.body)
+    .then((results) => {
+      res.json(results);
+    });
+
+  // render everything again/load items again --> in app.js
+  console.log(req.params.userId, req.body);
+  res.render('list');
+});
 
 // get/redirect user to the edit item page
-app.get("/user/:userId/list/items/:itemID/edit", (req, res) => {
+app.get("/users/:userId/list/items/:itemID/edit", (req, res) => {
   // identifies in wich item the user clicked
   // and pass that as a variable to edit the item ID she clicked!
   res.redirect("items");
 });
 
 // delete item from list page
-app.delete("/user/:userId/list/items/:itemID/delete", (req, res) => {
+app.delete("/users/:userId/list/items/:itemID/delete", (req, res) => {
   // identifies in wich item the user clicked
   // and delete that from the data base
   // render everything again/load items again
   res.render("list");
+});
 
 //TEST FUNCTION ONLY!
 // get/redirect user to the edit item page
-app.get("/user/:uID/list/items/:itemID/edit", (req, res) => {
+app.get("/users/:uID/list/items/:itemID/edit", (req, res) => {
  // identifies in wich item the user clicked
  // and pass that as a variable to edit the item ID she clicked!
  res.render("items");
@@ -114,10 +151,7 @@ app.put("/test_endpoint", (req, res) => {
 });
 
 
-
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
-
-
 

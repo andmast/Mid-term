@@ -59,28 +59,17 @@ MVP: A smart, auto-categorizing todo list app. The user simply has to add the na
 
 ROUTES
 
--   get-       /                                       main page shows login/register buttons or redirect if already logged into to profile page
--   get-      /register                                if not existing user and afterwards redirect to get/users/:userId 
--   get-      /login                                   goes to separate login page (exactly like TinyApp)
--   post-     /logout                                  to logout redirect to login/register page
--   get-      /users/:userId                              if already logged in to go directly to profile page
-
-
-
--   get-      /users/:userId                              to go to profile page
--   put-      /users/:userId/edit                         to update profile
--   get-      /users/:userId/list                         to see their own list
-
-<<<<<<< HEAD
--   post-     /users/:userId/list/items                   to add item on my to do list (NOT separate html page)
--   put-      /users/:userId/list/items/:itemID/edit      to edit item on my to do list (separate html page)
--   delete-   /users/:userId/list/items/:itemID/delete    to delete item on my to do list (not separate html page)
-=======
--   post-     /users/:uID/list/items                   to add item on my to do list (NOT separate html page)
--   get-      /user/:uID/list/items/:itemID/edit       to go to edit page
--   put-      /users/:uID/list/items/:itemID/edit      to edit item on my to do list (separate html page)
--   delete-   /users/:uID/list/items/:itemID/delete    to delete item on my to do list (not separate html page)
->>>>>>> feature/itemEdit
+-   get-      /                            main page shows login/register buttons or redirect if already logged into to profile page
+-   get-      /register                    if not existing user and afterwards redirect to get/users/:userId 
+-   get-      /login                       goes to separate login page (exactly like TinyApp)
+-   post-     /logout                      to logout redirect to login/register page
+-   get-      /users/                      if already logged in to go directly to profile page
+-   put-      /users/edit                  to update profile
+-   get-      /list                        to see their own list
+-   get-      /api/items                   get all the items in the list (NOT separate html page)
+-   post-     /api/items                   to add item on my to do list (NOT separate html page)
+-   put-      /items/:itemID/edit          to edit item on my to do list (separate html page)
+-   delete-   /items/:itemID/delete        to delete item on my to do list (not separate html page)
 
 
 BRANCHES

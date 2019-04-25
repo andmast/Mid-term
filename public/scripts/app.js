@@ -1,18 +1,43 @@
 "use strict";
 
+// $(() => {
+//   $.ajax({
+//     method: "GET",
+//     url: "/api/users"
+//   }).done((users) => {
+//     for(user of users) {
+//       $("<div>").text(user.name).appendTo($("body"));
+//     }
+//   });
+// });
 
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });
-});
-
-const data = [];
+const data = { users: {
+                 '1': {id: 1,
+                     name: 'Leticia',
+                     email: 'lzduque@hotmail.com',
+                     pasword: 1234                     }
+                 },
+               items: {
+                 1: {id: 1,
+                     name: 'Supernatural',
+                     done: false,
+                     category: "toWatch",
+                     userId: 1
+                     },
+                 2: {id: 2,
+                     name: 'Captain Marvel',
+                     done: true,
+                     category: 1,
+                     userId: 1
+                     },
+                 3: {id: 3,
+                     name: 'Avengers Endgame',
+                     done: false,
+                     category: 1,
+                     userId: 1
+                     }
+                 }
+              };
 
 //////////////////////////FUNCTIONS//////////////////////////
 
@@ -24,33 +49,39 @@ function escape(str) {
 
 
 function renderItems(items) {
-  $('#tableBody').empty();
-  items.forEach(function(item) {
-    var $item = createTweetElement(item);
+  // $('#tableBody').empty();
+  // items.forEach(function(item) {
+    var $item = createItem(items);
     $('#tableBody').append($item);
-  });
-};
+    console.log('Appending to the body');
+  // });
+}
 
 
-function addItem(itemData) {
+function createItem(itemData) {
 
-  const name = itemData.item.name;
-  const id = itemData.item.id;
-  const category = itemData.item.category;
-  const userId = itemData.item.userId;
-  const itemId = itemData.item.id;
+  // need to change that to match the data base
+  const itemName = itemData.items["1"].name;
+  console.log('name',name);
+  const category = itemData.items["1"].category;
+  console.log('category',category);
+  const userId = itemData.items["1"].id;
+  console.log('userId',userId);
+  const itemId = itemData.items["1"].id;
+  console.log('itemId',itemId);
 
   const newItem = `<tr>
-                  <td>${name}</td>
+                  <td>${itemName}</td>
                   <td>${category}</td>
                   <td><input type="checkbox" class="checkthis" /></td>
-                  <td><a href="/user/${userId}/list/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" action="/user/${userId}/list/items/${itemId}/delete">
+                  <td><a href="/users/${userId}/list/items/${itemId}/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/users/${userId}/list/items/${itemId}/delete">
                     <button>Delete</button>
                     </form>
                   </td>
                 </tr>
         </article>`;
+  console.log(newItem);
 
 return $(newItem);
 }
@@ -64,10 +95,10 @@ const handleSubmit = (event) => {
   //   $('p.error').empty().toggleClass('error right');
   // }
 
-  // if ($('section.new-tweet form textarea').val() === "") {
-  //   $('p.right').append('No tweet!').toggleClass('right error');
-  //   return;
-  // }
+  if ($('#newItem').val() === "") {
+    // $('p.right').append('No tweet!').toggleClass('right error');
+    return;
+  }
 
   // if ($('section.new-tweet form textarea').val().length > 140) {
   //   $('p.right').append('Tweet too long!').toggleClass('right error');
@@ -76,7 +107,7 @@ const handleSubmit = (event) => {
 
   $.ajax({
     type: 'POST',
-    url: '/user/:userId/list/items',
+    url: '/api/items', //posting info (new item) to the items page
     data : $('#newItem').text('#newItem').serialize(),
     complete: function() {
       console.log('request complete');
@@ -87,24 +118,28 @@ const handleSubmit = (event) => {
 
 
 const loadItems = function() {
-  $.get('/user/:userId/list/items', function(data) {
+  console.log('loading items');
+  $.get('/api/items', function(data) {
+        console.log('data from loadItems: ', data);
+
     $('#newItem').text('#newItem').val('');
+    console.log('data from textarea: ',$('#newItem').text('#newItem').val(''));
+
     renderItems(data);
-    console.log('data', data);
   });
 };
 
 
-//////////////////////////FUNCTIONS//////////////////////////
+//////////////////////////MAIN//////////////////////////
 
 
 $(document).ready(function() {
 
+  createItem(data);
   loadItems();
+
 
   $('#addNewItemButton').on('click', handleSubmit);
 
 });
-
-
 
