@@ -45,5 +45,5 @@ function categorizer(argument, callback)  {
 
 return {
     categorizer: categorizer,
-  }
-})()
+  };
+})();

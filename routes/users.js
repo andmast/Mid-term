@@ -4,6 +4,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const wolfApi = require ('../public/scripts/wolf-api.js');
 
 module.exports = (knex) => {
 
@@ -22,9 +23,10 @@ module.exports = (knex) => {
 // get list page from user - items contents
   router.get("/list/items", (req, res) => {
     knex
-      .select("*")
+      .select("items.id", "what", "completed", "userID", "categoryID", "name")
       .from("items")
       .leftJoin('categories', 'categories.id', 'items.categoryID')
+      .orderBy('items.id')
       .then((results) => {
         console.log('results: ',results);
         res.json(results);
@@ -37,16 +39,34 @@ module.exports = (knex) => {
     // read the content in the input area and create new item in data base --> in app.js
     // with the name of the thing, query the name through the categorizer
 
+    const what = req.body.newItem;
+    let categoryID;
+
     console.log('req.body: ', req.body);
     console.log('req.body.newItem: ', req.body.newItem);
-    // and put that inside category field
-    knex('items')
-      .insert([{what: req.body.newItem, completed: 'false', userID: 1, categoryID: 1}])
-      .then((results) => {
-        res.json(results);
-        res.send("It's Ok!!!");
-    // render everything again/load items again --> in app.js
-      });
+
+    wolfApi.categorizer(what, (error, result) =>{
+      if (!error) {
+        console.log("Success",result.category, result.type);
+        categoryID = result.category;
+      } else if (error === "No datatypes") {
+        console.log("Search returned nothing",error, "Category =","Uncategorized");
+        categoryID = 'Uncategorized';
+      } else {
+        console.log("ERROR",error);
+        throw error;
+      }
+
+      console.log('categoryID: ', categoryID);
+      // and put that inside category field
+      knex('items')
+        .insert([{'what': what, completed: 'false', userID: 1, 'categoryID': categoryID}])
+        .then((results) => {
+          res.json(results);
+          res.send("It's Ok!!!");
+      // render everything again/load items again --> in app.js
+        });
+    });
   });
 
 

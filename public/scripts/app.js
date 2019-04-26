@@ -85,9 +85,8 @@ const handleSubmit = (event) => {
     data : $('#form').serialize(),
     complete: function() {
       console.log('request complete');
-      // loadItems();
     }
-  }).then(loadItems());
+  }).then(loadItems);
   console.log('ended handle submit!');
 };
 
