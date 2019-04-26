@@ -11,33 +11,6 @@
 //   });
 // });
 
-const data = { users: {
-                 '1': {id: 1,
-                     name: 'Leticia',
-                     email: 'lzduque@hotmail.com',
-                     pasword: 1234                     }
-                 },
-               items: {
-                 1: {id: 1,
-                     name: 'Supernatural',
-                     done: false,
-                     category: "toWatch",
-                     userId: 1
-                     },
-                 2: {id: 2,
-                     name: 'Captain Marvel',
-                     done: true,
-                     category: 1,
-                     userId: 1
-                     },
-                 3: {id: 3,
-                     name: 'Avengers Endgame',
-                     done: false,
-                     category: 1,
-                     userId: 1
-                     }
-                 }
-              };
 
 //////////////////////////FUNCTIONS//////////////////////////
 
@@ -49,34 +22,35 @@ function escape(str) {
 
 
 function renderItems(items) {
-  // $('#tableBody').empty();
-  // items.forEach(function(item) {
-    var $item = createItem(items);
+  $('#tableBody').empty();
+  items.forEach(function(item) {
+    console.log('item: ',item);
+    var $item = createItem(item);
+    console.log('$item: ',$item);
     $('#tableBody').append($item);
     console.log('Appended to the body!');
-  // });
+  });
 }
 
 
 function createItem(itemData) {
 
   // need to change that to match the data base
-  const itemName = itemData.items["1"].name;
-  console.log('name',name);
-  const category = itemData.items["1"].category;
+  console.log('itemData: ',itemData);
+  const itemName = itemData.what;
+  console.log('name',itemName);
+  const category = itemData.name;
   console.log('category',category);
-  const userId = itemData.items["1"].id;
-  console.log('userId',userId);
-  const itemId = itemData.items["1"].id;
+  const itemId = itemData.id;
   console.log('itemId',itemId);
 
   const newItem = `<tr>
                   <td>${itemName}</td>
                   <td>${category}</td>
                   <td><input type="checkbox" class="checkthis" /></td>
-                  <td><a href="/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" action="/items/${itemId}/delete">
-                    <button>Delete</button>
+                  <td><a href="/api/users/list/items/${itemId}/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/api/users/list/items/${itemId}/delete">
+                    <button id="${itemId}">Delete</button>
                     </form>
                   </td>
                 </tr>
@@ -107,20 +81,20 @@ const handleSubmit = (event) => {
 
   $.ajax({
     type: 'POST',
-    url: '/api/items', //posting info (new item) to the items page
+    url: '/api/users/list/items', //posting info (new item) to the items page
     data : $('#form').serialize(),
     complete: function() {
       console.log('request complete');
-      loadItems();
+      // loadItems();
     }
-  });
+  }).then(loadItems());
   console.log('ended handle submit!');
 };
 
 
 const loadItems = function() {
   console.log('loading items');
-  $.get('/api/items', function(data) {
+  $.get('/api/users/list/items', function(data) {
 
     console.log('data from loadItems: ', data);
     console.log('data from textarea: ',$('textarea#newItem').val(''));
@@ -136,6 +110,8 @@ const loadItems = function() {
 
 $(document).ready(function() {
 
+
+
   // createItem(data);
   loadItems();
 
@@ -143,4 +119,18 @@ $(document).ready(function() {
   $('#addNewItemButton').on('click', handleSubmit);
 
 });
+
+
+const loadItems = function() {
+  console.log('loading items');
+  $.get('/api/items', function(data) {
+
+    console.log('data from loadItems: ', data);
+    console.log('data from textarea: ',$('textarea#newItem').val(''));
+    $('#newItem').val('');
+
+    renderItems(data);
+  });
+};
+
 
