@@ -111,6 +111,7 @@ const loadItems = function() {
 $(document).ready(function() {
 
 
+
 $("#delete").on("click", function( event ) {
   event.preventDefault();
   $.ajax({
@@ -126,6 +127,7 @@ $("#delete").on("click", function( event ) {
 
 
 
+
   // createItem(data);
   loadItems();
 
@@ -133,4 +135,7 @@ $("#delete").on("click", function( event ) {
   $('#addNewItemButton').on('click', handleSubmit);
 
 });
+
+
+
 

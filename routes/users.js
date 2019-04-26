@@ -17,9 +17,11 @@ module.exports = (knex) => {
   });
 
 
+
 /////////////LETICIA - CREATE BUTTON/////////////
 
 // get list page from user - items contents
+
   router.get("/list/items", (req, res) => {
     knex
       .select("*")
@@ -32,8 +34,10 @@ module.exports = (knex) => {
   });
 
 
+
   // create/post a new item in the list page -- replaced with AJAX code
   router.post("/list/items", (req, res) => {
+
     // read the content in the input area and create new item in data base --> in app.js
     // with the name of the thing, query the name through the categorizer
 
@@ -48,6 +52,7 @@ module.exports = (knex) => {
     // render everything again/load items again --> in app.js
       });
   });
+
 
 
 /////////////LETICIA - END - CREATE BUTTON/////////////
@@ -74,6 +79,70 @@ router.delete("/", (req, res) => {
 
 
 
+//////////////////sahanah - edit///////////////////////
+
+
+  router.get("/list/items/:itemID/edit", (req, res) => {
+    let itemId = req.params.itemId;
+    console.log(itemID);
+
+    let itemName;
+    let catName;
+    let templateVars;
+
+    knex
+      .select("*")
+      .from("items")
+      .leftJoin("categories", "categories.id", "items.categoryID")
+      .then((results) => {
+        console.log("results ", results);
+        items.forEach(function(item) {
+          console.log("item", item)
+          if (items.id === itemId) {
+            itemName = items.what;
+            catName = items.name;
+
+            templateVars = {'itemName': itemName,
+                            'catName':  catName  }
+          }
+          res.render("items", templateVars)
+        })
+      });
+  });
+
+
+  router.put("/list/items/:itemId/edit", (req, res) => {
+
+    let nameChange = $('#newName').val();
+    let newItemName;
+    let newCatID;
+    let newCatName;
+
+    knex
+      .select("*")
+      .from("categories")
+      .then((results) => {
+        $('#update').on('click', function(event) {
+          event.preventDefault();
+
+          if (nameChange.length === 0 || !nameChange.trim()) {
+            return alert('Enter a new item name or return to your list');
+          }
+
+          if ($('#drop-down').val() === "0") {
+            return alert('Select new category or return to your list');
+          }
+
+          if ($('#drop-down').val() === "1") {
+            newCatID = 1;
+            newCatName = 'To Watch';
+            newItemName = $('#newName').val();
+
+          }
+          res.redirect('/list', )
+        })
+    });
+  });
 
 
   return router;
