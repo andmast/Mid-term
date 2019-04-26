@@ -35,20 +35,18 @@ module.exports = (knex) => {
   // create/post a new item in the list page -- replaced with AJAX code
   router.post("/list/items", (req, res) => {
     // read the content in the input area and create new item in data base --> in app.js
-    const input = req.body;
-    console.log('input: ', input);
     // with the name of the thing, query the name through the categorizer
 
-    // and put that inside category field
-    // knex('items')
-    //   .insert(req.body)
-    //   .then((results) => {
-    //     res.json(results);
-    //   });
-
-    // render everything again/load items again --> in app.js
     console.log('req.body: ', req.body);
-    res.send("It's Ok!!!");
+    console.log('req.body.newItem: ', req.body.newItem);
+    // and put that inside category field
+    knex('items')
+      .insert([{what: req.body.newItem, completed: 'false', userID: 1, categoryID: 1}])
+      .then((results) => {
+        res.json(results);
+        res.send("It's Ok!!!");
+    // render everything again/load items again --> in app.js
+      });
   });
 
 

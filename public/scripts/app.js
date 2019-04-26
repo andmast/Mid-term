@@ -48,9 +48,9 @@ function createItem(itemData) {
                   <td>${itemName}</td>
                   <td>${category}</td>
                   <td><input type="checkbox" class="checkthis" /></td>
-                  <td><a href="/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" action="/items/${itemId}/delete">
-                    <button>Delete</button>
+                  <td><a href="/api/users/list/items/${itemId}/edit">Edit</a></td>
+                  <td><form method="DELETE" action="/api/users/list/items/${itemId}/delete">
+                    <button id="${itemId}">Delete</button>
                     </form>
                   </td>
                 </tr>
@@ -85,9 +85,9 @@ const handleSubmit = (event) => {
     data : $('#form').serialize(),
     complete: function() {
       console.log('request complete');
-      loadItems();
+      // loadItems();
     }
-  });
+  }).then(loadItems());
   console.log('ended handle submit!');
 };
 
