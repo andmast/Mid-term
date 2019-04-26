@@ -95,40 +95,41 @@ router.delete("/", (req, res) => {
 
 
 
-
-
-
-
 //////////////////sahanah - edit///////////////////////
 
 
-  router.get("/list/items/:itemID/edit", (req, res) => {
-    let itemId = req.params.itemId;
-    console.log(itemID);
 
-    let itemName;
-    let catName;
-    let templateVars;
+router.get("/list/items/:itemId/edit", (req, res) => {
+  let itemId = req.params.itemId;
 
+  let itemName;
+  let catName;
+  let templateVars;
+
+  function editItem(itemID) {
     knex
       .select("*")
       .from("items")
       .leftJoin("categories", "categories.id", "items.categoryID")
       .then((results) => {
-        console.log("results ", results);
-        items.forEach(function(item) {
-          console.log("item", item)
-          if (items.id === itemId) {
-            itemName = items.what;
-            catName = items.name;
-
-            templateVars = {'itemName': itemName,
-                            'catName':  catName  }
+       results.forEach(function(item) {
+        // console.log(item);
+        console.log("itemid ", item.id, "itemurl", itemId);
+        if (item.id == itemId) {
+          itemName = item.what;
+          catName = item.name;
+          templateVars = { 'itemName': itemName,
+                          'catName': catName,
+                          'itemId':  itemId};
+          // console.log(templateVars);
           }
-          res.render("items", templateVars)
-        })
-      });
-  });
+        });
+      // console.log(templateVars);
+      res.render("items", templateVars);
+    });
+  }
+editItem(itemId);
+});
 
 
   router.put("/list/items/:itemId/edit", (req, res) => {

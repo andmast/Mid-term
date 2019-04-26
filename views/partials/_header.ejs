@@ -1,0 +1,18 @@
+<!-- views/partials/header.ejs -->
+
+<nav class="navbar navbar-default">
+  <div class="navbar-header">
+    <h1 class="display-5 text-success text-wrap font-weight-bolder">Smart To Do</h1>
+  </div>
+  <div>
+    <% if (typeof(user_id) !== 'undefined') { %>
+    <p class="navbar-text navbar-right">Logged in as: <%= user_email %>
+    <form class="form-inline" method='POST' action='/logout' name='<%= user_id %>'>
+      <button class="btn btn-outline-success" ype="button">Logout</button>
+    </form>
+    </p>
+  </nav>
+<% } else { %>
+    </div>
+  </nav>
+<% } %>

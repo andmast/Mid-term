@@ -15,7 +15,6 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
-
   <body>
     <header>
       <nav class="navbar navbar-default">
@@ -30,31 +29,12 @@
           </p>
         </nav>
     </header>
-      <h4 class="col-md-6">Create New To Do!</h4>
-      <h5 class="col-md-6">What?</h5>
-      <form method="POST" class="col-md-6" id="form" action="/api/users/list/items">
-        <textarea class="col-md-6"type="text" name="newItem" id="newItem" style="resize:none"></textarea>
-        <input type="submit" id="addNewItemButton" value="Create!">
-      </form>
-      <br>
-      <br>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-          <h4>My To Do's</h4>
-          <div class="table-responsive">
-            <table id="mytable" class="table table-bordred table-striped">
-              <thead>
-                <th>What?</th>
-                <th>Category?</th>
-                <th>Done?</th>
-                <th>Edit?</th>
-                <th>Delete?</th>
-              </thead>
-              <tbody id="tableBody">
+    <br>
+    <br>
+    <div class="container">
+    <h1 class="title-banner py-4 bg-success text-white" >Welcome to Smart To Do!</h1>
+      <h3 class="well welcome-text">Please <a href="/login">Log In</a>, or <a href="/register" >Sign Up</a></h3>
+    </div>
 
-              </tbody>
-            </table>
-          </div>
   </body>
 </html>
