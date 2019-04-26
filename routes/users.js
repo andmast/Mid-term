@@ -52,6 +52,21 @@ module.exports = (knex) => {
 
 /////////////LETICIA - END - CREATE BUTTON/////////////
 
+router.delete("/", (req, res) => {
+    console.log("started");
+    knex.transaction(function(trx) {
+      knex('items').transacting(trx).where("id",6)
+        .then(console.log)
+        .then(trx.commit)
+    })
+    .then(function(resp) {
+      console.log('Transaction complete.');
+    })
+    .catch(function(err) {
+      console.error(err);
+    }).finally(()=> res.send("ok"));
+  });
+
 
 
 
