@@ -1,5 +1,8 @@
 "use strict";
 
+/// ----------Andrea
+
+
 $(document).ready(function() {
 
   $("#delete").on("click", function( event ) {
@@ -13,8 +16,7 @@ $(document).ready(function() {
   })
 });
 
-
-/// SET ID ON THE PARENT OF THE DELETE BUTTON NOT THE BUTTON ITSELF
+/// ------- andrea
 
 
 });
