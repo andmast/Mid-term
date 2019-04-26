@@ -16,5 +16,26 @@ module.exports = (knex) => {
     });
   });
 
+  router.delete("/", (req, res) => {
+    console.log("started");
+    knex.transaction(function(trx) {
+      knex('items').transacting(trx).where("id",6)
+        .then(console.log)
+        .then(trx.commit)
+        // .catch(trx.rollback);
+    })
+    .then(function(resp) {
+      console.log('Transaction complete.');
+    })
+    .catch(function(err) {
+      console.error(err);
+    }).finally(()=> res.send("ok"));
+    // console.log("delete")
+    // knex('items')
+    //   .where('id', 1)
+    //   .del().then(console.log)
+    //   res.send("ok")
+  });
+
   return router;
 };
