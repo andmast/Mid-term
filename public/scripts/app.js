@@ -49,8 +49,8 @@ function createItem(itemData) {
                   <td>${category}</td>
                   <td><input type="checkbox" class="checkthis" /></td>
                   <td><a href="/api/users/list/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" action="/api/users/list/items/${itemId}/delete">
-                    <button id="${itemId}">Delete</button>
+                  <td><form method="DELETE" id="${itemId}" action="/api/users/list/items/${itemId}/delete">
+                    <button>Delete</button>
                     </form>
                   </td>
                 </tr>
