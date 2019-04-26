@@ -48,7 +48,6 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// get list page from user
 app.get("/list", (req, res) => {
   console.log('Getting the list page...');
   res.render("list");
@@ -65,43 +64,13 @@ app.get("/items/:itemID/edit", (req, res) => {
   res.redirect("items");
 });
 
-// delete item from list page
-app.delete("/items/:itemID/delete", (req, res) => {
-  // identifies in wich item the user clicked
-  // and delete that from the data base
-  // render everything again/load items again
+app.delete("/items/:itemId/delete", (req, res) => {
   res.render("list");
 });
 
-//TEST FUNCTION ONLY!
-// get/redirect user to the edit item page
-app.get("/items/:itemID/edit", (req, res) => {
- // identifies in wich item the user clicked
- // and pass that as a variable to edit the item ID she clicked!
- res.render("items");
-});
-
-// Clicked update button on item page allowing user to change item name, change category
-// app.put("/users/:userID/list/items/:itemID/edit", (req, res) => {
-
-//   if (item category changed) {
-//     update database with new category;
-//   }
-
-//   if (item name changed) {
-//     update databae with new item name;
-//   }
-//   //using knex to refresh table
-//   res.redirect("index", updatedDatabase);
-//   // res.redirect("index");
-
+// app.get("/list/items/:itemId", (req, res) => {
+//  res.render("items");
 // });
-
-
-app.put("/test_endpoint", (req, res) => {
-  console.log("catID ", req.body.categoryID, "completed ", req.body.completed);
-  res.json({'foo':'bar'});
-});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
