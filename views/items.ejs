@@ -36,7 +36,6 @@
           </form>
         </p>
       </nav>
-
   </header>
        <br>
      <br>
@@ -51,10 +50,11 @@
                <th class="text-right">Category</th>
              </thead>
              <tbody>
-               <tr>
-                 <td><input id="newName" class="form-control" placeholder="itemName"></td>
+               <form id="edit-item" method="POST" action="/api/users/list/items/<%= itemId %>/edit">
+                <tr>
+                 <td><input name="newName" id="name" class="form-control" placeholder="<%= itemName %>"></td>
                  <td>
-                  <select id="drop-down">
+                  <select name="categories" id="drop-down">
                     <option value="0" selected="selected">Please select</option>
                     <option value="1">To Watch</option>
                     <option value="2">To Eat</option>
@@ -66,8 +66,9 @@
                </tr>
              </tbody>
            </table>
-           <button id="update" type="button" class="btn btn-success" onclick="window.location.href='/api/users/list/items/:itemID/edit'">UPDATE</button>
+           <button id="update" type="submit" class="btn btn-success">UPDATE</button>
            <button id="back" type="button" class="btn btn-success" onclick="window.location.href='/list'">GO BACK</button>
+          </form>
          </div>
  </body>
 </html>

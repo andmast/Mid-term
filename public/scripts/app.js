@@ -103,6 +103,7 @@ const loadItems = function() {
   });
 };
 
+
 const handleDelete = function() {
   event.preventDefault();
   const itemId = this.getAttribute( "data-id" );
@@ -119,6 +120,7 @@ const handleDelete = function() {
 };
 
 
+
 //////////////////////////MAIN//////////////////////////
 
 
@@ -126,21 +128,46 @@ $(document).ready(function() {
 
 
 
+  $("#delete").on("click", function( event ) {
+    event.preventDefault();
+    $.ajax({
+       url: '/api/users',
+       type: 'DELETE',
+       success: function(response) {
+        alert("success");
+       }
+      })
+    });
+
+ loadItems();
+
+ $('#addNewItemButton').on('click', handleSubmit);
+
+
   $( "body" ).on( "click", ".delete", handleDelete);
 
+////////////////////////////SAHANAH/////////////////////////////////
 
 
+  $('#edit-item').on('submit', function(event) {
 
+    event.preventDefault();
 
+    let nameChange = $('#newName').val();
+    console.log("nameChange", nameChange);
 
-  // createItem(data);
-  loadItems();
+    if (nameChange.length === 0 || !nameChange.trim()) {
+      return alert('Enter a new item name or return to your list');
+    }
 
+    if ($('#drop-down').val() == "0") {
+      return alert('Select new category or return to your list');
+    }
 
-  $('#addNewItemButton').on('click', handleSubmit);
+    this.submit();
+
+  });
 
 });
-
-
 
 

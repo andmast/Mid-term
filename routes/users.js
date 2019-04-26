@@ -30,7 +30,7 @@ module.exports = (knex) => {
       .leftJoin('categories', 'categories.id', 'items.categoryID')
       .orderBy('items.id')
       .then((results) => {
-        console.log('results: ',results);
+        // console.log('results: ',results);
         res.json(results);
     });
   });
@@ -94,68 +94,40 @@ router.delete("/", (req, res) => {
 //////////////////sahanah - edit///////////////////////
 
 
-  router.get("/list/items/:itemID/edit", (req, res) => {
-    let itemId = req.params.itemId;
-    console.log(itemID);
+  router.get("/list/items/:itemId/edit", (req, res) => {
 
-    let itemName;
-    let catName;
-    let templateVars;
+      knex
+        .select("*")
+        .from("items")
+        .where("items.id", req.params.itemId)
+        .leftJoin("categories", "categories.id", "items.categoryID")
+        .then((results) => {
 
-    knex
-      .select("*")
-      .from("items")
-      .leftJoin("categories", "categories.id", "items.categoryID")
-      .then((results) => {
-        console.log("results ", results);
-        items.forEach(function(item) {
-          console.log("item", item)
-          if (items.id === itemId) {
-            itemName = items.what;
-            catName = items.name;
+          console.log(results);
 
-            templateVars = {'itemName': itemName,
-                            'catName':  catName  }
+          let templateVars = {
+            'itemName': results[0].what,
+            'catName': results[0].name,
+            'itemId': results[0].id
           }
-          res.render("items", templateVars)
-        })
-      });
+
+          res.render("items", templateVars);
+        });
+
+   });
+
+  router.post("/list/items/:itemId/edit", (req, res) => {
+
+    console.log("update");
+    console.log("itemID", req.params.itemId);
+    console.log("newCatID", req.body.categories);
+    console.log("itemName", req.body.newName);
+
+    knex("items")
+      .where("id", req.params.itemId)
+      .update({categoryID: req.body.categories, what: req.body.newName})
+      .then(() => res.redirect('/list')).catch(()=> console.log('err'));
   });
-
-
-  router.put("/list/items/:itemId/edit", (req, res) => {
-
-    let nameChange = $('#newName').val();
-    let newItemName;
-    let newCatID;
-    let newCatName;
-
-    knex
-      .select("*")
-      .from("categories")
-      .then((results) => {
-        $('#update').on('click', function(event) {
-          event.preventDefault();
-
-          if (nameChange.length === 0 || !nameChange.trim()) {
-            return alert('Enter a new item name or return to your list');
-          }
-
-          if ($('#drop-down').val() === "0") {
-            return alert('Select new category or return to your list');
-          }
-
-          if ($('#drop-down').val() === "1") {
-            newCatID = 1;
-            newCatName = 'To Watch';
-            newItemName = $('#newName').val();
-
-          }
-          res.redirect('/list', )
-        })
-    });
-  });
-
 
   return router;
 };
