@@ -41,7 +41,7 @@ module.exports = (knex) => {
     console.log('req.body.newItem: ', req.body.newItem);
     // and put that inside category field
     knex('items')
-      .insert([{what: req.body.newItem, completed: 'false', userID: 1, categoryID: 1}])
+      .insert([{what: req.body.newItem, completed: 'false', userID: 1, categoryID: 3}])
       .then((results) => {
         res.json(results);
         res.send("It's Ok!!!");
@@ -53,18 +53,12 @@ module.exports = (knex) => {
 /////////////LETICIA - END - CREATE BUTTON/////////////
 
 router.delete("/", (req, res) => {
-    console.log("started");
-    knex.transaction(function(trx) {
-      knex('items').transacting(trx).where("id",6)
-        .then(console.log)
-        .then(trx.commit)
-    })
-    .then(function(resp) {
-      console.log('Transaction complete.');
-    })
-    .catch(function(err) {
-      console.error(err);
-    }).finally(()=> res.send("ok"));
+    console.log("started", req.body.name);
+    knex('items')
+      .where('what', req.body.name)
+      .del()
+      .then(() => res.send("Ok"))
+
   });
 
 

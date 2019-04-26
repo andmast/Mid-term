@@ -49,8 +49,8 @@ function createItem(itemData) {
                   <td>${category}</td>
                   <td><input type="checkbox" class="checkthis" /></td>
                   <td><a href="/api/users/list/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" id="${itemId}" action="/api/users/list/items/${itemId}/delete">
-                    <button>Delete</button>
+                  <td><form method="DELETE">
+                    <button id="TEST" data-name="${itemName}">Delete</button>
                     </form>
                   </td>
                 </tr>
@@ -104,23 +104,30 @@ const loadItems = function() {
   });
 };
 
+const handleDelete = function() {
+  event.preventDefault();
+  const itemName = this.getAttribute( "data-name" );
+  alert(itemName)
+  $.ajax({
+     url: '/api/users',
+     type: 'DELETE',
+     data: {name: itemName},
+     success: function(response) {
+      alert("success");
+     }
+    }).then(loadItems());
+
+};
 
 //////////////////////////MAIN//////////////////////////
 
 
 $(document).ready(function() {
 
+  $( "body" ).on( "click", "#TEST", handleDelete);
 
-$("#delete").on("click", function( event ) {
-  event.preventDefault();
-  $.ajax({
-     url: '/api/users',
-     type: 'DELETE',
-     success: function(response) {
-      alert("success");
-     }
-    })
-  });
+
+
 
 
 
