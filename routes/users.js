@@ -97,7 +97,7 @@ router.delete("/", (req, res) => {
   router.get("/list/items/:itemId/edit", (req, res) => {
 
       knex
-        .select("*")
+        .select("items.id", "what", "completed", "userID", "categoryID", "name")
         .from("items")
         .where("items.id", req.params.itemId)
         .leftJoin("categories", "categories.id", "items.categoryID")

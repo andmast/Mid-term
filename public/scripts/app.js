@@ -153,7 +153,7 @@ $(document).ready(function() {
 
     event.preventDefault();
 
-    let nameChange = $('#newName').val();
+    let nameChange = $('#name').val();
     console.log("nameChange", nameChange);
 
     if (nameChange.length === 0 || !nameChange.trim()) {
