@@ -104,6 +104,44 @@ const loadItems = function() {
   });
 };
 
+////////////////////////////SAHANAH/////////////////////////////////
+
+$('#edit-item').on('submit', function(event) {
+
+  event.preventDefault();
+
+  let nameChange = $('#newName').val();
+  console.log("nameChange", nameChange);
+
+  if (nameChange.length === 0 || !nameChange.trim()) {
+    return alert('Enter a new item name or return to your list');
+  }
+
+  if ($('#drop-down').val() == "0") {
+    return alert('Select new category or return to your list');
+  }
+
+  this.submit();
+
+  // let newCatID = $('#drop-down').val();
+  // let newItemName = $('#newName').val();
+  // console.log('newCatID', newCatID, 'newItemName', newItemName);
+
+  // let newEdit = {'newCatID': newCatID.serialize(), 'newItemName': newItemName.serialize()}
+
+  // console.log('newEdit', newEdit);
+
+  // $.ajax({
+  //   type: 'PUT',
+  //   url: '/api/users/list/items/:itemId/edit',
+  //   data : newEdit,
+  //   complete: function() {
+  //     console.log('request complete');
+  //   }
+  // });
+});
+
+
 
 //////////////////////////MAIN//////////////////////////
 
@@ -112,30 +150,25 @@ $(document).ready(function() {
 
 
 
-$("#delete").on("click", function( event ) {
-  event.preventDefault();
-  $.ajax({
-     url: '/api/users',
-     type: 'DELETE',
-     success: function(response) {
-      alert("success");
-     }
-    })
-  });
+  $("#delete").on("click", function( event ) {
+    event.preventDefault();
+    $.ajax({
+       url: '/api/users',
+       type: 'DELETE',
+       success: function(response) {
+        alert("success");
+       }
+      })
+    });
+
+ loadItems();
+
+ $('#addNewItemButton').on('click', handleSubmit);
 
 
 
 
-
-
-  // createItem(data);
-  loadItems();
-
-
-  $('#addNewItemButton').on('click', handleSubmit);
 
 });
-
-
 
 
