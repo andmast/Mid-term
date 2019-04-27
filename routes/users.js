@@ -58,7 +58,7 @@ module.exports = (knex) => {
     console.log('req.session.userId: ', req.session.userId);
 
     if (!req.session.userId) {
-      res.status(401).send('Unauthorized').redirect('/urls');
+      res.status(401).send('Unauthorized');
     } else {
       knex
         .select("items.id", "what", "completed", "userID", "categoryID", "name")

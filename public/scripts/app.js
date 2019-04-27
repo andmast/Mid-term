@@ -70,8 +70,20 @@ const handleSubmit = (event) => {
   // }
 
   if ($('#newItem').val() === "") {
-    // $('p.right').append('No tweet!').toggleClass('right error');
-    return;
+    return $(".error").slideDown().text("Nothing in your to-do").css("background", "pink")
+  } else {
+    $(".error").slideUp()
+    $(".loader").slideDown()
+    $.ajax({
+      type: 'POST',
+      url: '/api/users/list/items', //posting info (new item) to the items page
+      data : $('#form').serialize(),
+      complete: function() {
+        console.log('request complete');
+        $(".loader").slideUp()
+
+      }
+    }).then(loadItems);
   }
 
   // if ($('section.new-tweet form textarea').val().length > 140) {
@@ -79,14 +91,7 @@ const handleSubmit = (event) => {
   //   return;
   // }
 
-  $.ajax({
-    type: 'POST',
-    url: '/api/users/list/items', //posting info (new item) to the items page
-    data : $('#form').serialize(),
-    complete: function() {
-      console.log('request complete');
-    }
-  }).then(loadItems);
+
   console.log('ended handle submit!');
 };
 
