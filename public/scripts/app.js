@@ -168,6 +168,22 @@ $(document).ready(function() {
 
   });
 
+
+    $('#update-pass').on('submit', function(event) {
+
+    event.preventDefault();
+
+    let passChange = $('#inputPass').val();
+    console.log("passChange", passChange);
+
+    if (passChange.length === 0 || !passChange.trim()) {
+      return alert('Enter a new password or go to your list');
+    }
+
+    this.submit();
+
+  });
+
 });
 
 
