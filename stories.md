@@ -64,13 +64,13 @@ ROUTES
 -   get-      /login                       goes to separate login page (exactly like TinyApp)
 -   post-     /logout                      to logout redirect to login/register page
 -   get-      /users/                      if already logged in to go directly to profile page
--   put-      /users/edit                  to update profile
+-   put-      /users/:userId/edit                  to update profile
 -   get-      /list                        to see their own list
 -   get-      /api/users/list/items                   get all the items in the list (NOT separate html page)
 -   post-     /api/users/list/items                   to add item on my to do list (NOT separate html page)
--   get-      /api/users/list/items/:itemID          to edit item on my to do list (separate html page)
--   put-      /api/users/list/items/:itemID/edit          to edit item on my to do list (separate html page)
--   delete-   /api/users/list/items/:itemID/delete        to delete item on my to do list (not separate html page)
+-   get-      /api/users/list/items/:itemId          to edit item on my to do list (separate html page)
+-   put-      /api/users/list/items/:itemId/edit          to edit item on my to do list (separate html page)
+-   delete-   /api/users/list/items/:itemId/delete        to delete item on my to do list (not separate html page)
 
 
 BRANCHES

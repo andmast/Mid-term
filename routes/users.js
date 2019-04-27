@@ -6,6 +6,33 @@ const express = require('express');
 const router  = express.Router();
 const wolfApi = require ('../public/scripts/wolf-api.js');
 
+
+///////////////////FUNCTIONS///////////////////
+
+
+function findEmail(userId) {
+  console.log('userId: ',userId);
+  return new Promise (function(resolve, reject){
+    let results;
+
+    knex
+        .select('*')
+        .returning('id')
+        .from('users')
+        .where('id', userId)
+        .then((email) => {
+          console.log('results from findEmail: ',email[0]);
+          results = email[0];
+          return resolve(results);
+        })
+        .catch(error => reject(error));
+      });
+}
+
+
+///////////////////MODULE EXPORTS///////////////////
+
+
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
@@ -103,29 +130,29 @@ router.get("/list/items/:itemId/edit", (req, res) => {
 
   function editItem(itemID) {
     knex
-      .select("items.id", "what", "completed", "userID", "categoryID", "name")
+      .select("items.id", "what", "completed", "userID", "categoryID", "name", 'email')
       .from("items")
       .leftJoin("categories", "categories.id", "items.categoryID")
+      .leftJoin("users", "users.id", "items.userID")
       .where('userID', req.session.userId)
+      .where('items.id', itemID)
       .then((results) => {
-       results.forEach(function(item) {
-        // console.log(item);
-        console.log("itemid ", item.id, "itemurl", itemID);
-        if (item.id == itemID) {
-          itemName = item.what;
-          catName = item.name;
-          templateVars = { 'itemName': itemName,
-                          'catName': catName,
-                          'itemId':  itemID};
-          console.log(templateVars);
-          }
-        });
-      // console.log(templateVars);
-      res.render("items", templateVars);
-    });
+        console.log('results from then: ',results);
+        templateVars = {'itemName': results[0].what,
+                        'catName': results[0].categoryID,
+                        'itemId':  results[0].id,
+                        'userId': req.session.userId,
+                        'email': results[0].email
+                        };
+        console.log('templateVars: ',templateVars);
+        res.render("items", templateVars);
+      })
+      .catch(error => res.status(403).send(error));
   }
 editItem(req.params.itemId);
 });
+
+
 
   router.post("/list/items/:itemId/edit", (req, res) => {
 

@@ -71,6 +71,24 @@ function findUser(email) {
       });
 }
 
+function findEmail(userId) {
+  return new Promise (function(resolve, reject){
+    let results;
+
+    knex
+        .select('*')
+        .returning('id')
+        .from('users')
+        .where('id', userId)
+        .then((email) => {
+          console.log('results from findEmail: ',email[0]);
+          results = email[0];
+          return resolve(results);
+        })
+        .catch(error => reject(error));
+      });
+}
+
 
 function hasher(password) {
   const hashedPassword = bcrypt.hashSync(password, 10);
@@ -88,9 +106,18 @@ app.get("/", (req, res) => {
 
 // Main List Page
 app.get("/list", (req, res) => {
-  console.log('Getting the list page...');
-  res.render("list");
+console.log('Getting the list page...');
+  findEmail(req.session.userId)
+    .then(userData => {
+      const templateVars = {  'userId': req.session.userId,
+                              'email': userData.email,
+                            };
+      console.log('templateVars: ',templateVars);
+      res.render("list", templateVars);
+    })
+    .catch(error => res.status(403).send(error));
 });
+
 
 
 // Login Page
