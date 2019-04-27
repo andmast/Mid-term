@@ -19,25 +19,24 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
-
-
 <body>
-
   <header>
-
-    <nav class="navbar navbar-default">
+    <nav class="navbar top navbar-default bg-light">
       <div class="navbar-header">
-        <h1 class="display-5 text-success text-wrap font-weight-bolder">Smart To Do</h1>
+        <h1 class="display-1 text-success text-wrap font-weight-bolder">Smart To Do</h1>
       </div>
-      <div>
-        <p class="navbar-text navbar-right">Logged in as: email@lhl.com
-          <form class="form-inline">
-            <button class="btn btn-outline-success" type="button">Logout</button>
-          </form>
-        </p>
+
+      <div class="card text-center" style="width: 15rem;">
+        <div class="card-body">
+          <h5 class="card-title">Logged in as: email@lhl.com</h5>
+          <p><a class="card-text" href="******************">Go to User Profile</a></p>
+          <button class="btn btn-outline-success" type="button">Logout</a>
+        </div>
+      </div>
       </nav>
   </header>
        <br>
+     <br>
      <br>
      <div class="container">
        <div class="row">
@@ -47,12 +46,12 @@
            <table id="mytable" class="table table-bordered table-striped">
              <thead>
                <th class="text-left">What</th>
-               <th class="text-right">Category</th>
+               <th class="text-left">Category</th>
              </thead>
              <tbody>
                <form id="edit-item" method="POST" action="/api/users/list/items/<%= itemId %>/edit">
                 <tr>
-                 <td><input name="newName" id="name" class="form-control" placeholder="<%= itemName %>"></td>
+                 <td><input name="newName" id="name" class="form-control" value="<%= itemName %>"></td>
                  <td>
                   <select name="categories" id="drop-down">
                     <option value="0" selected="selected">Please select</option>

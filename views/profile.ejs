@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Edit Page</title>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>User's List Page</title>
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
+
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
-  <body>
+
+<body>
   <header>
     <nav class="navbar top navbar-default bg-light">
       <div class="navbar-header">
@@ -31,38 +36,11 @@
       </div>
       </nav>
   </header>
-      <br>
-      <br>
-      <br>
-      <div class="container">
-      <h2 class="text-center">Create New To Do!</h2>
-      <form method="POST" id="form" action="/api/users/list/items">
-        <textarea type="text" class="form-control form-control-lg" name="newItem" id="newItem" style="resize:none"></textarea><br>
-        <input type="submit" class="btn btn-success btn-block" id="addNewItemButton" value="Create!"></button>
-      </form>
-      </div>
-      <br>
-      <br>
-      <br>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-          <h4>My To Do List</h4>
-          <div class="table-responsive table table-hover">
-            <table id="mytable" class="table table-bordered table-striped">
-              <thead>
-                <th>What</th>
-                <th>Category</th>
-                <th>Done</th>
-                <th>Edit</th>
-                <th>Delete</th>
-              </thead>
-              <tbody id="tableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </table>
-  </div>
+
+
+
+
+
+
   </body>
 </html>

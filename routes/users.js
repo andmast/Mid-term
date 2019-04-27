@@ -131,3 +131,10 @@ router.delete("/", (req, res) => {
 
   return router;
 };
+
+
+  router.get("/:userId/edit", (req, res) => {
+
+    knex
+      .select()
+  })

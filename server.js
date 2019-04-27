@@ -54,20 +54,7 @@ app.get("/list", (req, res) => {
 });
 
 
-// // get/redirect user to the edit item page
-// app.get("/items/:itemID/edit", (req, res) => {
-//   // identifies in wich item the user clicked
-//   // and pass that as a variable to edit the item ID she clicked!
-//   res.redirect("items");
-// });
 
-// app.delete("/items/:itemId/delete", (req, res) => {
-//   res.render("list");
-// });
-
-// app.get("/list/items/:itemId", (req, res) => {
-//  res.render("items");
-// });
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

@@ -107,13 +107,13 @@ const loadItems = function() {
 const handleDelete = function() {
   event.preventDefault();
   const itemId = this.getAttribute( "data-id" );
-  alert(itemId)
+  // alert(itemId)
   $.ajax({
      url: '/api/users',
      type: 'DELETE',
      data: {itemId: itemId},
      success: function(response) {
-      alert("success");
+      // alert("success");
      }
     }).then(loadItems());
 
