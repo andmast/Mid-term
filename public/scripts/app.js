@@ -49,8 +49,8 @@ function createItem(itemData) {
                   <td>${category}</td>
                   <td><input type="checkbox" class="checkthis" /></td>
                   <td><a href="/api/users/list/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" id="${itemId}" action="/api/users/list/items/${itemId}/delete">
-                    <button>Delete</button>
+                  <td><form method="DELETE" >
+                    <button class="delete" data-id="${itemId}">Delete</button>
                     </form>
                   </td>
                 </tr>
@@ -104,6 +104,23 @@ const loadItems = function() {
 };
 
 
+const handleDelete = function() {
+  event.preventDefault();
+  const itemId = this.getAttribute( "data-id" );
+  // alert(itemId)
+  $.ajax({
+     url: '/api/users',
+     type: 'DELETE',
+     data: {itemId: itemId},
+     success: function(response) {
+      // alert("success");
+     }
+    }).then(loadItems());
+
+};
+
+
+
 //////////////////////////MAIN//////////////////////////
 
 
@@ -111,30 +128,46 @@ $(document).ready(function() {
 
 
 
-$("#delete").on("click", function( event ) {
-  event.preventDefault();
-  $.ajax({
-     url: '/api/users',
-     type: 'DELETE',
-     success: function(response) {
-      alert("success");
-     }
-    })
+  $("#delete").on("click", function( event ) {
+    event.preventDefault();
+    $.ajax({
+       url: '/api/users',
+       type: 'DELETE',
+       success: function(response) {
+        alert("success");
+       }
+      })
+    });
+
+ loadItems();
+
+ $('#addNewItemButton').on('click', handleSubmit);
+
+
+  $( "body" ).on( "click", ".delete", handleDelete);
+
+////////////////////////////SAHANAH/////////////////////////////////
+
+
+  $('#edit-item').on('submit', function(event) {
+
+    event.preventDefault();
+
+    let nameChange = $('#name').val();
+    console.log("nameChange", nameChange);
+
+    if (nameChange.length === 0 || !nameChange.trim()) {
+      return alert('Enter a new item name or return to your list');
+    }
+
+    if ($('#drop-down').val() == "0") {
+      return alert('Select new category or return to your list');
+    }
+
+    this.submit();
+
   });
 
-
-
-
-
-
-  // createItem(data);
-  loadItems();
-
-
-  $('#addNewItemButton').on('click', handleSubmit);
-
 });
-
-
 
 

@@ -16,34 +16,38 @@
   </head>
 <body>
   <header>
-    <nav class="navbar navbar-default">
+    <nav class="navbar top navbar-default bg-light">
       <div class="navbar-header">
-        <h1 class="display-5 text-success text-wrap font-weight-bolder">Smart To Do</h1>
+        <h1 class="display-1 text-success text-wrap font-weight-bolder">Smart To Do</h1>
       </div>
-      <div>
-        <p class="navbar-text navbar-right">Logged in as: email@lhl.com
+      <div class="card text-center" style="width: 15rem;">
+        <div class="card-body">
+          <h5 class="card-title">Logged in as: email@lhl.com</h5>
+          <p><a class="card-text" href="******************">Go to User Profile</a></p>
           <form class="form-inline" method="POST" action="/Logout" id="formLogout">
-            <button class="btn btn-outline-success" type="submit" form="formLogout">Logout</button>
+          <button class="btn btn-outline-success" type="submit" form="formLogout">Logout</button>
           </form>
-        </p>
-      </nav>
+        </div>
+      </div>
+    </nav>
   </header>
        <br>
+     <br>
      <br>
      <div class="container">
        <div class="row">
          <div class="col-md-12">
          <h4>Edit Item</h4>
          <div class="table-responsive">
-          <form method="PUT" action="/list/items/<%= itemId %>/edit">
            <table id="mytable" class="table table-bordered table-striped">
              <thead>
                <th class="text-left">What</th>
-               <th class="text-right">Category</th>
+               <th class="text-left">Category</th>
              </thead>
              <tbody>
+               <form id="edit-item" method="POST" action="/api/users/list/items/<%= itemId %>/edit">
                 <tr>
-                 <td><input name="name" id="newName" class="form-control" value="<%= itemName %>"></td>
+                 <td><input name="newName" id="name" class="form-control" value="<%= itemName %>"></td>
                  <td>
                   <select name="categories" id="drop-down">
                     <option value="0" selected="selected">Please select</option>
@@ -59,7 +63,7 @@
            </table>
            <button id="update" type="submit" class="btn btn-success">UPDATE</button>
            <button id="back" type="button" class="btn btn-success" onclick="window.location.href='/list'">GO BACK</button>
-           </form>
+          </form>
          </div>
  </body>
 </html>

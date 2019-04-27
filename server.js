@@ -169,7 +169,6 @@ app.post('/register', (req, res, next) => {
 });
 
 
-
 // get/redirect user to the edit item page
 app.get("/items/:itemID", (req, res) => {
   // identifies in wich item the user clicked
@@ -184,6 +183,7 @@ app.delete("/items/:itemId/delete", (req, res) => {
 // app.get("/list/items/:itemId", (req, res) => {
 //  res.render("items");
 // });
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
