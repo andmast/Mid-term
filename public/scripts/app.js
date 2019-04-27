@@ -63,11 +63,13 @@ return $(newItem);
 
 const handleSubmit = (event) => {
   event.preventDefault();
+  console.log("Here","value", $('#newItem').val())
   console.log('Button clicked!');
 
   // if ($('section.new-tweet form p.error')) {
   //   $('p.error').empty().toggleClass('error right');
   // }
+
 
   if ($('#newItem').val() === "") {
     // $('p.right').append('No tweet!').toggleClass('right error');
@@ -125,19 +127,6 @@ const handleDelete = function() {
 
 
 $(document).ready(function() {
-
-
-
-  $("#delete").on("click", function( event ) {
-    event.preventDefault();
-    $.ajax({
-       url: '/api/users',
-       type: 'DELETE',
-       success: function(response) {
-        alert("success");
-       }
-      })
-    });
 
  loadItems();
 
