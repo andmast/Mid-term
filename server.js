@@ -123,8 +123,10 @@ console.log('Getting the list page...');
 // Login Page
 app.get("/login", (req, res) => {
   if (!req.session.userId) {
+    console.log("rendering login");
     return res.render('login');
   } else {
+    console.log("redirect login");
     res.redirect('/list');
   }
 });
@@ -177,7 +179,7 @@ app.post('/register', (req, res, next) => {
     .then(userData => {
       if (!email || !password) {
         // return res.status(400).send('missing id or password');
-        throw ('missing id or password');
+        throw ('Missing email or password');
       } else if (!findUser(email)) {
         console.log('findUser(email): ',findUser(email));
         // return res.status(400).send('Already registered');

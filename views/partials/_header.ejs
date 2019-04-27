@@ -10,9 +10,10 @@
 
         <div class="card text-center" style="width: 15rem;">
           <div class="card-body">
-            <h5 class="card-title">Logged in as: <%= email %></h5>
+            <h5>Logged in as:</h5>
+            <h6 class="card-title text-truncate"><%= email %></h6>
             <p><a class="card-text" href="/api/users/<%= userId %>/edit">Go to User Profile</a></p>
-            <form class="form-inline" method="POST" action="/Logout" id="formLogout">
+            <form class="form-inline d-flex justify-content-center" method="POST" action="/Logout" id="formLogout">
             <button class="btn btn-outline-success" type="submit" form="formLogout">Logout</button>
             </form>
           </div>
