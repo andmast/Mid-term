@@ -21,20 +21,28 @@ module.exports = (knex) => {
 
 /////////////LETICIA - CREATE BUTTON/////////////
 
-// get list page from user - items contents
-
+  // get list page from user - items contents
   router.get("/list/items", (req, res) => {
-    knex
-      .select("items.id", "what", "completed", "userID", "categoryID", "name")
-      .from("items")
-      .leftJoin('categories', 'categories.id', 'items.categoryID')
-      .orderBy('items.id')
-      .then((results) => {
-        console.log('results: ',results);
-        res.json(results);
-    });
+    console.log('req.session.userId: ', req.session.userId);
+
+    if (!req.session.userId) {
+      res.status(401).send('Unauthorized').redirect('/urls');
+    } else {
+      knex
+        .select("items.id", "what", "completed", "userID", "categoryID", "name")
+        .from("items")
+        .leftJoin('categories', 'categories.id', 'items.categoryID')
+        .where('userID', req.session.userId)
+        .orderBy('items.id')
+        .then((results) => {
+          console.log('results: ',results);
+          res.json(results);
+      });
+    }
+
   });
 
+  // select * from "items" left join "categories" on "categories"."id" = "items"."categoryID" where "userID" = 1 order by "items"."id";
 
 
   // create/post a new item in the list page -- replaced with AJAX code
@@ -46,12 +54,6 @@ module.exports = (knex) => {
     console.log('req.session.userId: ', req.session.userId);
     console.log('req.body: ', req.body);
     console.log('req.body.newItem: ', req.body.newItem);
-
-    if (!userId) {
-      res.status(401).send('Unauthorized');
-      res.redirect('/urls');
-    }
-
 
     wolfApi.categorizer(what, (error, result) =>{
       if (!error) {
@@ -68,7 +70,7 @@ module.exports = (knex) => {
       console.log('categoryID: ', categoryID);
       // and put that inside category field
       knex('items')
-        .insert([{'what': what, completed: 'false', userID: 1, 'categoryID': categoryID}])
+        .insert([{'what': what, completed: 'false', userID: req.session.userId, 'categoryID': categoryID}])
         .then((results) => {
           res.json(results);
           res.send("It's Ok!!!");
