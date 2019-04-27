@@ -30,14 +30,25 @@
       <div class="card text-center" style="width: 15rem;">
         <div class="card-body">
           <h5 class="card-title">Logged in as: email@lhl.com</h5>
-          <p><a class="card-text" href="******************">Go to User Profile</a></p>
           <button class="btn btn-outline-success" type="button">Logout</a>
         </div>
       </div>
       </nav>
   </header>
+    <br>
+    <form id="update-pass" method="POST" action="/api/users/<%= userId %>/edit">
+      <div class="container-fluid">
+          <label for="exampleInputPassword1">Change Password</label>
+          <input type="password" class="form-control" id="inputPass" placeholder="Password">
+          <br>
+          <button type="submit" class="btn btn-success">Update</button>
+      </div>
+    </form>
 
-
+      <div class="container-fluid">
+        <br>
+        <h3 class="text-center"><a href="/list" class="text-decoration-none">Go to your list</a></h3>
+      </div>
 
 
 

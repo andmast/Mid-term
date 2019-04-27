@@ -72,7 +72,7 @@ module.exports = (knex) => {
         .insert([{'what': what, completed: 'false', userID: req.session.userId, 'categoryID': categoryID}])
         .then((results) => {
           res.json(results);
-          res.send("It's Ok!!!");
+          // res.send("It's Ok!!!");
       // render everything again/load items again --> in app.js
         });
     });
@@ -96,36 +96,36 @@ router.delete("/", (req, res) => {
 
 
 
-router.get("/list/items/:itemId/edit", (req, res) => {
-  let itemName;
-  let catName;
-  let templateVars;
+  router.get("/list/items/:itemId/edit", (req, res) => {
+    let itemName;
+    let catName;
+    let templateVars;
 
-  function editItem(itemID) {
-    knex
-      .select("items.id", "what", "completed", "userID", "categoryID", "name")
-      .from("items")
-      .leftJoin("categories", "categories.id", "items.categoryID")
-      .where('userID', req.session.userId)
-      .then((results) => {
-       results.forEach(function(item) {
-        // console.log(item);
-        console.log("itemid ", item.id, "itemurl", itemID);
-        if (item.id == itemID) {
-          itemName = item.what;
-          catName = item.name;
-          templateVars = { 'itemName': itemName,
-                          'catName': catName,
-                          'itemId':  itemID};
-          console.log(templateVars);
-          }
-        });
-      // console.log(templateVars);
-      res.render("items", templateVars);
-    });
-  }
-editItem(req.params.itemId);
-});
+    function editItem(itemID) {
+      knex
+        .select("items.id", "what", "completed", "userID", "categoryID", "name")
+        .from("items")
+        .leftJoin("categories", "categories.id", "items.categoryID")
+        .where('userID', req.session.userId)
+        .then((results) => {
+         results.forEach(function(item) {
+          // console.log(item);
+          console.log("itemid ", item.id, "itemurl", itemID);
+          if (item.id == itemID) {
+            itemName = item.what;
+            catName = item.name;
+            templateVars = { 'itemName': itemName,
+                             'catName': catName,
+                             'itemId':  itemID};
+            console.log(templateVars);
+            }
+          });
+        // console.log(templateVars);
+        res.render("items", templateVars);
+      });
+    }
+  editItem(req.params.itemId);
+  });
 
   router.post("/list/items/:itemId/edit", (req, res) => {
 
@@ -140,14 +140,48 @@ editItem(req.params.itemId);
       .then(() => res.redirect('/list')).catch(()=> console.log('err'));
   });
 
+
+  router.get("/:userId/edit", (req, res) => {
+
+    let userEmail;
+    let userPass;
+    let templateVars;
+
+    console.log("userId", req.session.userId);
+
+    function editProfile(userID) {
+      knex
+        .select("id", "email", "password")
+        .from("users")
+        .then((results) => {
+          results.forEach(function(user) {
+            console.log("user", user);
+            if(user.id == req.session.userId) {
+              userEmail = user.email;
+              userPass = user.password;
+              templateVars = { 'email': userEmail,
+                               'userPass': userPass,
+                               'userId': req.session.userId};
+            }
+          });
+          console.log('templateVars', templateVars);
+          res.render("profile", templateVars);
+        });
+      }
+      editProfile(req.params.userId);
+  });
+
+  router.post("/:userId/edit", (req, res) => {
+
+    knex("users")
+      .where("id", req.params.userId)
+      .update({password: req.body.userPass})
+      .then(() => res.redirect('/list')).catch(() => console.log('err'));
+  });
+
+
+
   return router;
-
-  // router.get("/:userId/edit", (req, res) => {
-
-  //   knex
-  //     .select();
-  // });
-
 };
 
 

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
-    <scr
   </head>
 <body>
   <header>
@@ -23,7 +22,7 @@
       <div class="card text-center" style="width: 15rem;">
         <div class="card-body">
           <h5 class="card-title">Logged in as: email@lhl.com</h5>
-          <p><a class="card-text" href="******************">Go to User Profile</a></p>
+          <p><a class="card-text" href="/api/users/<%= userId %>/edit">Go to User Profile</a></p>
           <form class="form-inline" method="POST" action="/Logout" id="formLogout">
           <button class="btn btn-outline-success" type="submit" form="formLogout">Logout</button>
           </form>
