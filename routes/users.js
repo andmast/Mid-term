@@ -133,8 +133,8 @@ router.delete("/", (req, res) => {
 };
 
 
-  router.get("/:userId/edit", (req, res) => {
+  // router.get("/:userId/edit", (req, res) => {
 
-    knex
-      .select()
-  })
+  //   knex
+  //     .select()
+  // })
