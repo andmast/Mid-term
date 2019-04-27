@@ -173,7 +173,7 @@ $(document).ready(function() {
 
     event.preventDefault();
 
-    let passChange = $('#inputPass').val();
+    let passChange = $('#userPass').val();
     console.log("passChange", passChange);
 
     if (passChange.length === 0 || !passChange.trim()) {

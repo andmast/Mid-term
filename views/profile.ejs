@@ -30,7 +30,7 @@
     <form id="update-pass" method="POST" action="/api/users/<%= userId %>/edit">
       <div class="container-fluid">
           <label for="exampleInputPassword1">Change Password</label>
-          <input type="password" class="form-control" id="inputPass" placeholder="Password">
+          <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Password">
           <br>
           <button type="submit" class="btn btn-success">Update</button>
       </div>

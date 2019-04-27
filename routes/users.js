@@ -5,10 +5,15 @@
 const express = require('express');
 const router  = express.Router();
 const wolfApi = require ('../public/scripts/wolf-api.js');
+const bcrypt  = require('bcrypt');
 
 
 ///////////////////FUNCTIONS///////////////////
 
+function hasher(password) {
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  return hashedPassword;
+}
 
 function findEmail(userId) {
   console.log('userId: ',userId);
@@ -200,11 +205,13 @@ editItem(req.params.itemId);
   });
 
   router.post("/:userId/edit", (req, res) => {
-
+    console.log("params", req.params.userId);
+    console.log('pass', req.body.userPass);
+    let newPass = hasher(req.body.userPass);
     knex("users")
       .where("id", req.params.userId)
-      .update({password: req.body.userPass})
-      .then(() => res.redirect('/list')).catch(() => console.log('err'));
+      .update({password: newPass})
+      .then(() => res.redirect('/list')).catch(()=> console.log('err'));
   });
 
 
