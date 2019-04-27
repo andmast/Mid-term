@@ -135,12 +135,14 @@ app.post('/login', (req, res, next) => {
 
   findUser(req.body.email)
     .then(userData => {
-      if (userData && bcrypt.compareSync(req.body.password, userData.password)) {
-        req.session.userId = userData.id;
-        console.log('userData.id: ',userData.id);
-        res.redirect('/list');
+      if (userData === undefined){
+          res.redirect("/register");
+      } else if (userData.email === req.body.email && bcrypt.compareSync(req.body.password, userData.password)){
+          req.session.userId = userData.id;
+          console.log('userData.id: ',userData.id);
+          res.redirect('/list');
       } else {
-        res.status(403).send('The email address or password you entered is not valid.');
+          return res.status(403).send('The email address or password you entered is not valid.');
       }
     })
     .catch(error => res.status(403).send(error));
@@ -203,9 +205,6 @@ app.get("/items/:itemID", (req, res) => {
   res.redirect("items");
 });
 
-app.delete("/items/:itemId/delete", (req, res) => {
-  res.render("list");
-});
 
 // app.get("/list/items/:itemId", (req, res) => {
 //  res.render("items");
