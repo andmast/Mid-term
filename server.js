@@ -144,24 +144,28 @@ app.post('/register', (req, res, next) => {
   console.log('email ',email);
   console.log('password ', password);
 
-  if (!email || !password) {
-    throw ('missing id or password');
-    // return res.status(400).send('missing id or password');
-  } else if (findUser(email)) {
-    console.log('findUser(email): ',findUser(email));
-    throw ('Already registered');
-    // return res.status(400).send('Already registered');
-  } else {
-    knex('users')
-        .returning('id')
-        .insert([{'email': email, 'password': password}])
-        .then((id) => {
-          console.log('results from register: ',id);
-          req.session.userId = id;
-          req.session.userEmail = email;
-          res.redirect('/list');
-        });
-  }
+  findUser(email)
+    .then(userData => {
+      if (!email || !password) {
+        // return res.status(400).send('missing id or password');
+        throw ('missing id or password');
+      } else if (findUser(email)) {
+        console.log('findUser(email): ',findUser(email));
+        // return res.status(400).send('Already registered');
+        throw ('Already registered');
+      } else {
+        knex('users')
+            .returning('id')
+            .insert([{'email': email, 'password': password}])
+            .then((id) => {
+              console.log('results from register: ',id);
+              req.session.userId = id;
+              req.session.userEmail = email;
+              res.redirect('/list');
+            });
+      }
+    })
+    .catch(error => res.status(403).send(error));
 });
 
 
