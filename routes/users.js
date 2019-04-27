@@ -106,35 +106,34 @@ router.delete("/", (req, res) => {
 
 
 router.get("/list/items/:itemId/edit", (req, res) => {
-  let itemId = req.params.itemId;
-
   let itemName;
   let catName;
   let templateVars;
 
   function editItem(itemID) {
     knex
-      .select("*")
+      .select("items.id", "what", "completed", "userID", "categoryID", "name")
       .from("items")
       .leftJoin("categories", "categories.id", "items.categoryID")
+      .where('userID', req.session.userId)
       .then((results) => {
        results.forEach(function(item) {
         // console.log(item);
-        console.log("itemid ", item.id, "itemurl", itemId);
-        if (item.id == itemId) {
+        console.log("itemid ", item.id, "itemurl", itemID);
+        if (item.id == itemID) {
           itemName = item.what;
           catName = item.name;
           templateVars = { 'itemName': itemName,
                           'catName': catName,
-                          'itemId':  itemId};
-          // console.log(templateVars);
+                          'itemId':  itemID};
+          console.log(templateVars);
           }
         });
       // console.log(templateVars);
       res.render("items", templateVars);
     });
   }
-editItem(itemId);
+editItem(req.params.itemId);
 });
 
 
