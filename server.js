@@ -149,7 +149,7 @@ app.post('/register', (req, res, next) => {
       if (!email || !password) {
         // return res.status(400).send('missing id or password');
         throw ('missing id or password');
-      } else if (findUser(email)) {
+      } else if (!findUser(email)) {
         console.log('findUser(email): ',findUser(email));
         // return res.status(400).send('Already registered');
         throw ('Already registered');
@@ -159,7 +159,7 @@ app.post('/register', (req, res, next) => {
             .insert([{'email': email, 'password': password}])
             .then((id) => {
               console.log('results from register: ',id);
-              req.session.userId = id;
+              req.session.userId = id[0];
               req.session.userEmail = email;
               res.redirect('/list');
             });

@@ -61,7 +61,7 @@ module.exports = (knex) => {
         categoryID = result.category;
       } else if (error === "No datatypes") {
         console.log("Search returned nothing",error, "Category =","Uncategorized");
-        categoryID = 'Uncategorized';
+        categoryID = 5;
       } else {
         console.log("ERROR",error);
         throw error;
