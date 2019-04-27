@@ -45,13 +45,19 @@ function createItem(itemData) {
   console.log('itemId',itemId);
 
   const newItem = `<tr>
+                  <td><input type="checkbox" class="checkthis" /></td>
                   <td>${itemName}</td>
                   <td>${category}</td>
-                  <td><input type="checkbox" class="checkthis" /></td>
-                  <td><a href="/api/users/list/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" >
-                    <button class="delete" data-id="${itemId}">Delete</button>
+                  <td>
+                  <div class="btn-group center-block">
+                  <form method="GET" action="/api/users/list/items/${itemId}/edit"><button class="btn btn-primary center-block btn-xs center-block" data-title="Edit">Edit</button>
+                  </form>
+                  </td>
+                  <td>
+                  <form method="DELETE" >
+                    <button class="btn btn-danger center-block btn-xs delete center-block" data-id="${itemId}">Delete</button>
                     </form>
+                  </div>
                   </td>
                 </tr>
         </article>`;
