@@ -53,7 +53,23 @@ app.use("/api/users", usersRoutes(knex));
 /////////////////////////FUNCTIONS/////////////////////////
 
 
+function findUser(email) {
+  return new Promise (function(resolve, reject){
+    let results;
 
+    knex
+        .select('*')
+        .returning('id')
+        .from('users')
+        .where('email', email)
+        .then((id) => {
+          console.log('results from findUser: ',id[0]);
+          results = id[0];
+          return resolve(results);
+        })
+        .catch(error => reject(error));
+      });
+}
 
 
 function hasher(password) {
@@ -77,71 +93,75 @@ app.get("/list", (req, res) => {
 });
 
 
-// // Login Page
-// app.get("/login", (req, res) => {
-//   if (!req.session.user_id) {
-//     return res.render('urls_login');
-//   } else {
-//     res.redirect('/urls');
-//   }
-// });
-
-
-// //log in and send the form
-// app.post('/login', (req, res, next) => {
-
-//   const user = findUser(req.body.user_email);
-
-//   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-//     req.session.user_id = user.id;
-//     res.redirect('/list');
-//   } else {
-//     res.status(403).send('The email address or password you entered is not valid.');
-//   }
-// });
-
-
-// // Logout Page
-// app.get("/logout", (req, res) => {
-//   req.session = null;
-//   res.redirect('/');
-// });
-
-
-//register page!
-app.get('/register', (req, res) => {
-  // if (!req.session.user_id) {
-    res.render('register');
-  // } else {
-    // res.redirect('/');
-  // }
+// Login Page
+app.get("/login", (req, res) => {
+  if (!req.session.userId) {
+    return res.render('login');
+  } else {
+    res.redirect('/list');
+  }
 });
 
 
-//registering!
+//log in and send the form
+app.post('/login', (req, res, next) => {
+
+  findUser(req.body.email)
+    .then(userData => {
+      if (userData && bcrypt.compareSync(req.body.password, userData.password)) {
+        req.session.userId = userData.id;
+        console.log('userData.id: ',userData.id);
+        res.redirect('/list');
+      } else {
+        res.status(403).send('The email address or password you entered is not valid.');
+      }
+    })
+    .catch(error => res.status(403).send(error));
+});
+
+
+// Logout Page
+app.post("/logout", (req, res) => {
+  req.session = null;
+  res.redirect('/');
+});
+
+
+//register page! --> OK!
+app.get('/register', (req, res) => {
+  if (!req.session.userId) {
+    res.render('register');
+  } else {
+    res.redirect('/list');
+  }
+});
+
+
+//registering! --> SOLVE THAT --> it finds the email, but it is not stopping!
 app.post('/register', (req, res, next) => {
   const email = req.body.email;
-  const password = req.body.password;
-  const user = { 'email': email, 'password': hasher(password)};
+  const password = hasher(req.body.password);
   console.log('email ',email);
   console.log('password ', password);
 
-  // if (!email || !password) {
-  //   return res.status(400).send('missing id or password');
-  // }
-
-  // if (findUser(email)) {
-  //   return res.status(400).send('Already registered');
-  // }
-
-  knex('users')
-      .returning('id')
-      .insert([{'email': email, 'password': password}])
-      .then((id) => {
-        console.log('results from register: ',id);
-        req.session.userId = id;
-        res.redirect('/list');
-      });
+  if (!email || !password) {
+    throw ('missing id or password');
+    // return res.status(400).send('missing id or password');
+  } else if (findUser(email)) {
+    console.log('findUser(email): ',findUser(email));
+    throw ('Already registered');
+    // return res.status(400).send('Already registered');
+  } else {
+    knex('users')
+        .returning('id')
+        .insert([{'email': email, 'password': password}])
+        .then((id) => {
+          console.log('results from register: ',id);
+          req.session.userId = id;
+          req.session.userEmail = email;
+          res.redirect('/list');
+        });
+  }
 });
 
 

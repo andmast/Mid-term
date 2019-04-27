@@ -24,10 +24,9 @@
         </div>
         <div>
           <p class="navbar-text navbar-right">Logged in as: email@lhl.com
-            <form class="form-inline">
-              <button class="btn btn-outline-success" type="button">Logout</button>
+            <form class="form-inline" method="POST" action="/Logout" id="formLogout">
+              <button class="btn btn-outline-success" type="submit" form="formLogout">Logout</button>
             </form>
-          </p>
         </nav>
     </header>
       <h4 class="col-md-6">Create New To Do!</h4>
