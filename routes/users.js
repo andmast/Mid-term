@@ -40,14 +40,18 @@ module.exports = (knex) => {
   // create/post a new item in the list page -- replaced with AJAX code
   router.post("/list/items", (req, res) => {
 
-    // read the content in the input area and create new item in data base --> in app.js
-    // with the name of the thing, query the name through the categorizer
-
     const what = req.body.newItem;
     let categoryID;
 
+    console.log('req.session.userId: ', req.session.userId);
     console.log('req.body: ', req.body);
     console.log('req.body.newItem: ', req.body.newItem);
+
+    if (!userId) {
+      res.status(401).send('Unauthorized');
+      res.redirect('/urls');
+    }
+
 
     wolfApi.categorizer(what, (error, result) =>{
       if (!error) {
