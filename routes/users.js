@@ -129,8 +129,7 @@ router.delete("/", (req, res) => {
 
 
   router.get("/list/items/:itemId/edit", (req, res) => {
-    let itemName;
-    let catName;
+
     let templateVars;
 
   function editItem(itemID) {
@@ -144,7 +143,8 @@ router.delete("/", (req, res) => {
       .then((results) => {
         console.log('results from then: ',results);
         templateVars = {'itemName': results[0].what,
-                        'catName': results[0].categoryID,
+                        'catId': results[0].categoryID,
+                        'catName': results[0].name,
                         'itemId':  results[0].id,
                         'userId': req.session.userId,
                         'email': results[0].email
