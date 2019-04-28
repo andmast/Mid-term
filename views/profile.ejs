@@ -28,11 +28,15 @@
 
     <br>
     <form id="update-pass" method="POST" action="/api/users/<%= userId %>/edit">
-      <div class="container-fluid">
-          <label for="exampleInputPassword1">Change Password</label>
-          <input type="password" class="form-control text-center" name="userPass" id="userPass" placeholder="Password">
-          <br>
-          <button type="submit" class="btn btn-success">Update</button>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <label for="exampleInputPassword1">Change Password</label>
+            <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Password">
+            <br>
+            <button type="submit" class="btn btn-success">Update</button>
+          </div>
+        </div>
       </div>
     </form>
 
@@ -40,8 +44,6 @@
         <br>
         <h3 class="text-center"><a href="/list" class="text-decoration-none">Go to your list</a></h3>
       </div>
-
-
 
   </body>
 </html>
