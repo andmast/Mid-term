@@ -10,6 +10,7 @@ function escape(str) {
 
 
 function renderItems(items) {
+  console.log('items', items);
   $('#tableBody').empty();
   items.forEach(function(item) {
     console.log('item: ',item);
