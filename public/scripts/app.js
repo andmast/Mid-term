@@ -129,9 +129,9 @@ $(document).ready(function() {
 
 
 
- loadItems();
+  loadItems();
 
- $('#addNewItemButton').on('click', handleSubmit);
+  $('#addNewItemButton').on('click', handleSubmit);
 
 
   $( "body" ).on( "click", ".delete", handleDelete);
@@ -159,19 +159,30 @@ $(document).ready(function() {
   });
 
 
-    $('#update-pass').on('submit', function(event) {
+  $('#update-pass').on('submit', function(event) {
+
+  event.preventDefault();
+
+  let passChange = $('#userPass').val();
+  console.log("passChange", passChange);
+
+  if (passChange.length === 0 || !passChange.trim()) {
+    return alert('Enter a new password or go to your list');
+  }
+
+  this.submit();
+
+  });
+
+  $('#showPass').on('click', function(event) {
 
     event.preventDefault();
 
-    let passChange = $('#userPass').val();
-    console.log("passChange", passChange);
-
-    if (passChange.length === 0 || !passChange.trim()) {
-      return alert('Enter a new password or go to your list');
+    let show = document.getElementById('userPass');
+    if(show.type === "password") {
+      return show.type = "text";
     }
-
-    this.submit();
-
+    show.type = "password";
   });
 
 });
