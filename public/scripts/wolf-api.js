@@ -42,6 +42,20 @@ function categorizer(argument, callback)  {
 }
 
 
+function context(argument, callback) {
+  waApi.getFull({
+    input: argument,
+
+  })
+  .then((queryresult) => {
+    callback("Image",queryresult.pods[2].subpods[0].img.src)
+    callback("DATA", queryresult.pods[1].subpods[0].img.src)
+  })
+  .catch((error) =>{callback(error)})
+  // body...
+}
+
+
 
 return {
     categorizer: categorizer,
