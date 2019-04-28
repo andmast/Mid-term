@@ -1,17 +1,5 @@
 "use strict";
 
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });
-// });
-
-
 //////////////////////////FUNCTIONS//////////////////////////
 
 function escape(str) {
@@ -43,9 +31,20 @@ function createItem(itemData) {
   console.log('category',category);
   const itemId = itemData.id;
   console.log('itemId',itemId);
+  let itemDone = itemData.completed;
+  console.log('itemDone',itemDone);
+
+  if (itemDone === 'false') {
+    itemDone = "";
+  } else {
+    itemDone = "checked";
+  }
+
+
+  console.log('itemDone',itemDone);
 
   const newItem = `<tr>
-                  <td><input type="checkbox" class="checkthis" /></td>
+                  <td><input type="checkbox" class="checkthis ${itemDone}" ${itemDone} id="${itemId}"/></td>
                   <td>${itemName}</td>
                   <td>${category}</td>
                   <td>
@@ -79,11 +78,6 @@ const handleSubmit = (event) => {
     // $('p.right').append('No tweet!').toggleClass('right error');
     return;
   }
-
-  // if ($('section.new-tweet form textarea').val().length > 140) {
-  //   $('p.right').append('Tweet too long!').toggleClass('right error');
-  //   return;
-  // }
 
   $.ajax({
     type: 'POST',
@@ -164,7 +158,7 @@ $(document).ready(function() {
   });
 
 
-    $('#update-pass').on('submit', function(event) {
+  $('#update-pass').on('submit', function(event) {
 
     event.preventDefault();
 
@@ -178,6 +172,35 @@ $(document).ready(function() {
     this.submit();
 
   });
+
+//work in progress --> done button
+  // $("body").on("click", ".checkthis checked", function(event) {
+  //     event.preventDefault();
+  //     alert("here")
+  //     const itemId = this.getAttribute("id");
+  //     console.log('true turned into false');
+  //     console.log('itemId: ',itemId);
+
+  //     knex("items")
+  //         .where("id", itemId)
+  //         .update({completed: false})
+  //         .then(() => res.redirect('/list')).catch(()=> console.log('err'));
+  // });
+
+  // $("body").on("click", ".checkthis", function(event) {
+  //     event.preventDefault();
+  //     alert("there")
+  //     const itemId = this.getAttribute("id");
+  //     console.log('false turned into true');
+  //     console.log('itemId: ',itemId);
+
+  //     knex("items")
+  //         .where("id", itemId)
+  //         .update({completed: true})
+  //         .then(() => res.redirect('/list')).catch(()=> console.log('err'));
+  // });
+
+
 
 });
 
