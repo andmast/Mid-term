@@ -65,7 +65,7 @@ module.exports = (knex) => {
         .from("items")
         .leftJoin('categories', 'categories.id', 'items.categoryID')
         .where('userID', req.session.userId)
-        .orderBy('items.id')
+        .orderBy('completed','items.id')
         .then((results) => {
           console.log('results: ',results);
           res.json(results);
@@ -159,7 +159,6 @@ editItem(req.params.itemId);
 
 
 
-
   router.post("/list/items/:itemId/edit", (req, res) => {
 
     console.log("update");
@@ -213,7 +212,6 @@ editItem(req.params.itemId);
       .update({password: newPass})
       .then(() => res.redirect('/list')).catch(()=> console.log('err'));
   });
-
 
 
   return router;

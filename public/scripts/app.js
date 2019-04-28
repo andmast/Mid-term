@@ -1,17 +1,5 @@
 "use strict";
 
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });
-// });
-
-
 //////////////////////////FUNCTIONS//////////////////////////
 
 function escape(str) {
@@ -43,15 +31,32 @@ function createItem(itemData) {
   console.log('category',category);
   const itemId = itemData.id;
   console.log('itemId',itemId);
+  let itemDone = itemData.completed;
+  console.log('itemDone',itemDone);
+
+  if (itemDone === 'false') {
+    itemDone = "";
+  } else {
+    itemDone = "checked";
+  }
+
+
+  console.log('itemDone',itemDone);
 
   const newItem = `<tr>
+                  <td><input type="checkbox" class="checkthis ${itemDone}" ${itemDone} id="${itemId}"/></td>
                   <td>${itemName}</td>
                   <td>${category}</td>
-                  <td><input type="checkbox" class="checkthis" /></td>
-                  <td><a href="/api/users/list/items/${itemId}/edit">Edit</a></td>
-                  <td><form method="DELETE" >
-                    <button class="delete" data-id="${itemId}">Delete</button>
+                  <td>
+                  <div class="btn-group center-block">
+                  <form method="GET" action="/api/users/list/items/${itemId}/edit"><button class="btn btn-primary center-block btn-xs center-block" data-title="Edit">Edit</button>
+                  </form>
+                  </td>
+                  <td>
+                  <form method="DELETE" >
+                    <button class="btn btn-danger center-block btn-xs delete center-block" data-id="${itemId}">Delete</button>
                     </form>
+                  </div>
                   </td>
                 </tr>
         </article>`;
@@ -85,12 +90,6 @@ const handleSubmit = (event) => {
       }
     }).then(loadItems);
   }
-
-  // if ($('section.new-tweet form textarea').val().length > 140) {
-  //   $('p.right').append('Tweet too long!').toggleClass('right error');
-  //   return;
-  // }
-
 
   console.log('ended handle submit!');
 };
@@ -163,7 +162,7 @@ $(document).ready(function() {
   });
 
 
-    $('#update-pass').on('submit', function(event) {
+  $('#update-pass').on('submit', function(event) {
 
     event.preventDefault();
 
@@ -177,6 +176,35 @@ $(document).ready(function() {
     this.submit();
 
   });
+
+//work in progress --> done button
+  // $("body").on("click", ".checkthis checked", function(event) {
+  //     event.preventDefault();
+  //     alert("here")
+  //     const itemId = this.getAttribute("id");
+  //     console.log('true turned into false');
+  //     console.log('itemId: ',itemId);
+
+  //     knex("items")
+  //         .where("id", itemId)
+  //         .update({completed: false})
+  //         .then(() => res.redirect('/list')).catch(()=> console.log('err'));
+  // });
+
+  // $("body").on("click", ".checkthis", function(event) {
+  //     event.preventDefault();
+  //     alert("there")
+  //     const itemId = this.getAttribute("id");
+  //     console.log('false turned into true');
+  //     console.log('itemId: ',itemId);
+
+  //     knex("items")
+  //         .where("id", itemId)
+  //         .update({completed: true})
+  //         .then(() => res.redirect('/list')).catch(()=> console.log('err'));
+  // });
+
+
 
 });
 
