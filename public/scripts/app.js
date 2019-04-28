@@ -35,7 +35,7 @@ function createItem(itemData) {
   let itemDone = itemData.completed;
   console.log('itemDone',itemDone);
 
-  if (itemDone === 'false') {
+  if (itemDone === "false") {
     itemDone = "";
   } else {
     itemDone = "checked";
@@ -186,25 +186,23 @@ $(document).ready(function() {
       console.log('document.getElementById(itemId): ',document.getElementById(itemId));
       console.log('document.getElementById(itemId).checked: ',document.getElementById(itemId).checked);
 
-      if (document.getElementById(itemId).checked = true) {
-        document.getElementById(itemId).checked = false;
-        console.log('posting...');
+      if (document.getElementById(itemId).checked === false) {
+        console.log('posting... true');
         $.ajax({
           url: '/api/users/list/items/check',
           type: 'POST',
-          data: {'itemId': itemId, 'completed': false},
+          data: {'itemId': itemId, 'completed': "false"},
           success: function(response) {
           console.log('response: ',response);
           console.log("success at posting");
           }
         }).then(loadItems()).catch(() => console.log('err'));
       } else {
-        document.getElementById(itemId).checked = true;
-        console.log('posting...');
+        console.log('posting... false');
         $.ajax({
           url: '/api/users/list/items/check',
           type: 'POST',
-          data: {'itemId': itemId, 'completed': true},
+          data: {'itemId': itemId, 'completed': "true"},
           success: function(response) {
           console.log('response: ',response);
           console.log("success at posting");
