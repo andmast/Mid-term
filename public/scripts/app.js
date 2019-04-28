@@ -44,7 +44,7 @@ function createItem(itemData) {
 
   console.log('itemDone',itemDone);
 
-  const newItem = `<tr>
+  const newItem = `<tr class="${category} panel">
                   <td><input type="checkbox" class="checkthis" id="${itemId}" ${itemDone}/></td>
                   <td>${itemName}</td>
                   <td>${category}</td>
@@ -214,7 +214,31 @@ $(document).ready(function() {
 
   });
 
+  // function to toggle
+  $(function(){
 
+    $('.tab-panels .tabs li').on('click', function() {
+      let $panel = $(this).closest('.tab-panels');
+
+      $panel.find('.tabs li.active').removeClass('active');
+      $(this).addClass('active');
+
+      // figure out wich panel to show
+      let panelToShow = $(this).attr('rel');
+
+      // alert(panelToShow);
+      $panel.find('.panel.active').hide(300,showNextPanel);
+
+        // show next panel
+        function showNextPanel() {
+          $(this).removeClass('active');
+          $('.'+panelToShow).show(300, function() {
+            $(this).addClass('active');
+          });
+        }
+    });
+
+  });
 
 });
 
