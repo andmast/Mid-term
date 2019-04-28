@@ -44,7 +44,7 @@ function createItem(itemData) {
   console.log('itemDone',itemDone);
 
   const newItem = `<tr>
-                  <td><input type="checkbox" class="checkthis" ${itemDone} id="${itemId}"/></td>
+                  <td><input type="checkbox" class="checkthis" id="${itemId}" ${itemDone}/></td>
                   <td>${itemName}</td>
                   <td>${category}</td>
                   <td>
@@ -181,27 +181,30 @@ $(document).ready(function() {
       console.log('document.getElementById(itemId): ',document.getElementById(itemId));
       console.log('document.getElementById(itemId).checked: ',document.getElementById(itemId).checked);
 
-
       if (document.getElementById(itemId).checked = true) {
         document.getElementById(itemId).checked = false;
+        console.log('posting...');
         $.ajax({
           url: '/api/users/list/items/check',
           type: 'POST',
           data: {'itemId': itemId, 'completed': false},
           success: function(response) {
+          console.log('response: ',response);
           console.log("success at posting");
           }
-        }).then(loadItems());
+        }).then(loadItems()).catch(() => console.log('err'));
       } else {
         document.getElementById(itemId).checked = true;
+        console.log('posting...');
         $.ajax({
           url: '/api/users/list/items/check',
           type: 'POST',
           data: {'itemId': itemId, 'completed': true},
           success: function(response) {
+          console.log('response: ',response);
           console.log("success at posting");
           }
-        }).then(loadItems());
+        }).then(loadItems()).catch(() => console.log('err'));
       }
 
   });

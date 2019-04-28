@@ -226,10 +226,8 @@ editItem(req.params.itemId);
     knex("items")
         .where("id", req.body.itemId)
         .update({'completed': req.body.completed})
-        .then(() => console.log('sucessful')).catch(()=> console.log('err'));
+        .then(() => res.send("Ok")).catch(()=> console.log('err'));
   });
-
-
 
   return router;
 };
