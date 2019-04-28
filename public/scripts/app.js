@@ -179,7 +179,7 @@ $(document).ready(function() {
   //work in progress --> done button
   $("body").on("click", ".checkthis", function(event) {
       event.preventDefault();
-      alert("here");
+      // alert("here");
       const itemId = this.getAttribute("id");
       console.log('this.getAttribute("id"): ',this.getAttribute("id"));
       console.log('itemId: ',itemId);
