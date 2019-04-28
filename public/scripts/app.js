@@ -212,7 +212,16 @@ $(document).ready(function() {
 
   });
 
+  $('#showPass').on('click', function(event) {
 
+  event.preventDefault();
+
+    let show = document.getElementById('userPass');
+    if(show.type === "password") {
+      return show.type = "text";
+    }
+    show.type = "password";
+  });
 
 });
 
