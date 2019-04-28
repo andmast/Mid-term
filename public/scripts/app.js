@@ -44,7 +44,7 @@ function createItem(itemData) {
   console.log('itemDone',itemDone);
 
   const newItem = `<tr>
-                  <td><input type="checkbox" class="checkthis ${itemDone}" ${itemDone} id="${itemId}"/></td>
+                  <td><input type="checkbox" class="checkthis" ${itemDone} id="${itemId}"/></td>
                   <td>${itemName}</td>
                   <td>${category}</td>
                   <td>
@@ -126,11 +126,9 @@ const handleDelete = function() {
 
 $(document).ready(function() {
 
+  loadItems();
 
-
- loadItems();
-
- $('#addNewItemButton').on('click', handleSubmit);
+  $('#addNewItemButton').on('click', handleSubmit);
 
 
   $( "body" ).on( "click", ".delete", handleDelete);
@@ -173,32 +171,40 @@ $(document).ready(function() {
 
   });
 
-//work in progress --> done button
-  // $("body").on("click", ".checkthis checked", function(event) {
-  //     event.preventDefault();
-  //     alert("here")
-  //     const itemId = this.getAttribute("id");
-  //     console.log('true turned into false');
-  //     console.log('itemId: ',itemId);
+  //work in progress --> done button
+  $("body").on("click", ".checkthis", function(event) {
+      event.preventDefault();
+      alert("here");
+      const itemId = this.getAttribute("id");
+      console.log('this.getAttribute("id"): ',this.getAttribute("id"));
+      console.log('itemId: ',itemId);
+      console.log('document.getElementById(itemId): ',document.getElementById(itemId));
+      console.log('document.getElementById(itemId).checked: ',document.getElementById(itemId).checked);
 
-  //     knex("items")
-  //         .where("id", itemId)
-  //         .update({completed: false})
-  //         .then(() => res.redirect('/list')).catch(()=> console.log('err'));
-  // });
 
-  // $("body").on("click", ".checkthis", function(event) {
-  //     event.preventDefault();
-  //     alert("there")
-  //     const itemId = this.getAttribute("id");
-  //     console.log('false turned into true');
-  //     console.log('itemId: ',itemId);
+      if (document.getElementById(itemId).checked = true) {
+        document.getElementById(itemId).checked = false;
+        $.ajax({
+          url: '/api/users/list/items/check',
+          type: 'POST',
+          data: {'itemId': itemId, 'completed': false},
+          success: function(response) {
+          console.log("success at posting");
+          }
+        }).then(loadItems());
+      } else {
+        document.getElementById(itemId).checked = true;
+        $.ajax({
+          url: '/api/users/list/items/check',
+          type: 'POST',
+          data: {'itemId': itemId, 'completed': true},
+          success: function(response) {
+          console.log("success at posting");
+          }
+        }).then(loadItems());
+      }
 
-  //     knex("items")
-  //         .where("id", itemId)
-  //         .update({completed: true})
-  //         .then(() => res.redirect('/list')).catch(()=> console.log('err'));
-  // });
+  });
 
 
 

@@ -119,7 +119,7 @@ router.delete("/", (req, res) => {
     knex('items')
       .where('id', req.body.itemId)
       .del()
-      .then(() => res.send("Ok"))
+      .then(() => res.send("Ok"));
 
 });
 
@@ -212,6 +212,23 @@ editItem(req.params.itemId);
       .update({password: newPass})
       .then(() => res.redirect('/list')).catch(()=> console.log('err'));
   });
+
+
+//////////////////LETICIA - CHECKBOX///////////////////////
+
+
+  router.post("/list/items/check", (req, res) => {
+
+    console.log("changing checkbox");
+    console.log("req.body.itemId: ", req.body.itemId);
+    console.log("completed: ", req.body.completed);
+
+    knex("items")
+        .where("id", req.body.itemId)
+        .update({'completed': req.body.completed})
+        .then(() => console.log('sucessful')).catch(()=> console.log('err'));
+  });
+
 
 
   return router;

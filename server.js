@@ -206,10 +206,6 @@ app.get("/items/:itemID", (req, res) => {
 });
 
 
-// app.get("/list/items/:itemId", (req, res) => {
-//  res.render("items");
-// });
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
