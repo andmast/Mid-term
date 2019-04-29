@@ -63,6 +63,34 @@ Users should be able to register, log in, log out and update their profile.
 !["UpDate-Profile"](read-me-images/UpDate-Profile.png)
 
 
+## Additonal Features to come
+
+- Adjustments in css/bootstrap
+- Refactoring code
+- Transform table in tabs
+- Sorting table trough categories
+- Add profile pics to  each user
+- Allow users to change email and profile picture
+- Add a to do description to the list page
+- Allow users to edit to do descriptions
+- Allow users to send their to do lists to others via email
+- Adding a more info button to show more context to a todo list
+
+## Work in progress Screeshots
+
+### Extra-Context
+!["Extra-Context"](read-me-images/extra-context.png)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
