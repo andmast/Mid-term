@@ -53,6 +53,12 @@ Users should be able to register, log in, log out and update their profile.
 !["Login Page"](read-me-images/Login.png)
 ### Registration
 !["Registration"](read-me-images/Registration.png)
+### Users-to-do list
+!["Users-to-do list"](read-me-images/Users-to-do.png)
+### Error-message-on-empty-field
+!["Error-message-on-empty-field"](read-me-images/Error-message-on-empty-field.png)
+### UpDate-to-do
+!["UpDate-Profile"](read-me-images/Update-to-do.png)
 ### UpDate-Profile
 !["UpDate-Profile"](read-me-images/UpDate-Profile.png)
 

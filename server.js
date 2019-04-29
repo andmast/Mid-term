@@ -180,7 +180,7 @@ app.post('/register', (req, res, next) => {
       if (!email || !password) {
         // return res.status(400).send('missing id or password');
         throw ('Missing email or password');
-      } else if (findUser(email)) {
+      } else if (userData !== undefined) {
         console.log('findUser(email): ',findUser(email));
         // return res.status(400).send('Already registered');
         throw ('Already registered');
