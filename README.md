@@ -53,8 +53,9 @@ Users should be able to register, log in, log out and update their profile.
 !["Login Page"](read-me-images/Login.png)
 ### Registration
 !["Registration"](read-me-images/Registration.png)
-### Registration
-!["Registration"](read-me-images/Registration.png)
+### UpDate-Profile
+!["UpDate-Profile"](read-me-images/UpDate-Profile.png)
+
 
 
 
