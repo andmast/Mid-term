@@ -64,7 +64,7 @@ function createItem(itemData) {
                     </form>
                   </td>
                 </tr>
-                <tr  style= "display: none;">
+                <tr>
                 <td><img src="${whatImg}"></td>
                 <td><img src="${whatData}"></td>
                 </tr>`;
