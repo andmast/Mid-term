@@ -61,7 +61,7 @@ module.exports = (knex) => {
       res.json([]);
     } else {
       knex
-        .select("items.id", "what", "completed", "userID", "categoryID", "name")
+        .select("items.id", "what", "completed", "userID", "categoryID", "name","img","data")
         .from("items")
         .leftJoin('categories', 'categories.id', 'items.categoryID')
         .where('userID', req.session.userId)
@@ -81,6 +81,8 @@ module.exports = (knex) => {
 
     const what = req.body.newItem;
     let categoryID;
+    let imgSrc;
+    let dataSrc;
 
     console.log('req.session.userId: ', req.session.userId);
     console.log('req.body: ', req.body);
@@ -90,6 +92,8 @@ module.exports = (knex) => {
       if (!error) {
         console.log("Success",result.category, result.type);
         categoryID = result.category;
+        imgSrc = result.img;
+        dataSrc = result.data;
       } else if (error === "No datatypes") {
         console.log("Search returned nothing",error, "Category =","Uncategorized");
         categoryID = 5;
@@ -101,7 +105,7 @@ module.exports = (knex) => {
       console.log('categoryID: ', categoryID);
       // and put that inside category field
       knex('items')
-        .insert([{'what': what, completed: 'false', userID: req.session.userId, 'categoryID': categoryID}])
+        .insert([{'what': what, completed: 'false', userID: req.session.userId, 'categoryID': categoryID, 'img': imgSrc, 'data': dataSrc}])
         .then((results) => {
           res.json(results);
           // res.send("It's Ok!!!");

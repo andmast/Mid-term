@@ -34,6 +34,10 @@ function createItem(itemData) {
   console.log('itemId',itemId);
   let itemDone = itemData.completed;
   console.log('itemDone',itemDone);
+  let whatImg = itemData.img
+  console.log ("whatImg",whatImg);
+  let whatData = itemData.data
+  console.log ("whatImg",whatImg);
 
   if (itemDone === "false") {
     itemDone = "";
@@ -48,6 +52,7 @@ function createItem(itemData) {
                   <td><input type="checkbox" class="checkthis" id="${itemId}" ${itemDone}/></td>
                   <td>${itemName}</td>
                   <td>${category}</td>
+                  <td><button class="btn btn-primary center-block btn-xs center-block info" data-id="${itemId}">info</button>                  </td>
                   <td>
                   <div class="btn-group center-block">
                   <form method="GET" action="/api/users/list/items/${itemId}/edit"><button class="btn btn-primary center-block btn-xs center-block" data-title="Edit">Edit</button>
@@ -57,10 +62,12 @@ function createItem(itemData) {
                   <form method="DELETE" >
                     <button class="btn btn-danger center-block btn-xs delete center-block" data-id="${itemId}">Delete</button>
                     </form>
-                  </div>
                   </td>
                 </tr>
-        </article>`;
+                <tr  style= "display: none;">
+                <td><img src="${whatImg}"></td>
+                <td><img src="${whatData}"></td>
+                </tr>`;
   console.log('newItem created: ',newItem);
 
 return $(newItem);
@@ -135,8 +142,14 @@ $(document).ready(function() {
 
   $('#addNewItemButton').on('click', handleSubmit);
 
-
   $( "body" ).on( "click", ".delete", handleDelete);
+
+
+  $( "body" ).on( "click", ".info", function(event) {
+    event.preventDefault();
+    alert("here",event);
+
+  });
 
 ////////////////////////////SAHANAH/////////////////////////////////
 
